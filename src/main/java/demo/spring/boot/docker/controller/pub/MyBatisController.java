@@ -1,7 +1,7 @@
 package demo.spring.boot.docker.controller.pub;
 
-import demo.spring.boot.docker.mybatis.service.CatService;
-import demo.spring.boot.docker.mybatis.vo.Cat;
+import demo.spring.boot.docker.service.CatService;
+import demo.spring.boot.docker.vo.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

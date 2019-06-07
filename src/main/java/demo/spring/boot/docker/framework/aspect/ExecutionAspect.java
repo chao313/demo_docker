@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * 2018/8/9    Created by   chao
  */
-@org.aspectj.lang.annotation.Aspect
+@Aspect
 @Component
 public class ExecutionAspect {
     protected final Logger logger = LoggerFactory.getLogger(getClass());

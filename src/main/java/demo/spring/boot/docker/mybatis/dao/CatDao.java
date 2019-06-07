@@ -1,6 +1,6 @@
 package demo.spring.boot.docker.mybatis.dao;
 
-import demo.spring.boot.docker.mybatis.vo.Cat;
+import demo.spring.boot.docker.vo.Cat;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

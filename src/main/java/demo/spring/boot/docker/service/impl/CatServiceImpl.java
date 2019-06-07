@@ -1,12 +1,13 @@
-package demo.spring.boot.docker.mybatis.service;
+package demo.spring.boot.docker.service.impl;
 
 import demo.spring.boot.docker.mybatis.dao.CatDao;
-import demo.spring.boot.docker.mybatis.vo.Cat;
+import demo.spring.boot.docker.service.CatService;
+import demo.spring.boot.docker.vo.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CatService {
+public class CatServiceImpl implements CatService {
     @Autowired
     private CatDao catDao;
 

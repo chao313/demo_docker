@@ -1,4 +1,4 @@
-package demo.spring.boot.docker.mybatis.vo;
+package demo.spring.boot.docker.vo;
 
 public class Cat {
     private Integer id;
