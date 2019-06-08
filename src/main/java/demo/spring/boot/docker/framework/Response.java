@@ -69,4 +69,47 @@ public class Response<T> {
         this.content = content;
     }
 
+    /**
+     * 请求失败
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Response<T> fail(T data) {
+        return new Response(Code.System.FAIL, null, data);
+    }
+
+    /**
+     * 请求失败
+     *
+     * @param msg
+     * @param <T>
+     * @return
+     */
+    public static <T> Response<T> fail(T data, String msg) {
+        return new Response(Code.System.FAIL, msg, data);
+    }
+
+    /**
+     * 请求ok
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Response<T> ok(T data) {
+        return new Response(Code.System.OK, null, data);
+    }
+
+    /**
+     * 请求ok
+     *
+     * @param msg
+     * @param <T>
+     * @return
+     */
+    public static <T> Response<T> ok(T data, String msg) {
+        return new Response(Code.System.OK, msg, data);
+    }
+
+
 }
