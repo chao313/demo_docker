@@ -138,10 +138,22 @@
             <version>0.8.0.RELEASE</version>
         </dependency>
 
+        <!--
+        StringUtils
+        -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
+        </dependency>
+
+        <!--
+        ssh
+        -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
         </dependency>
 
     </dependencies>
