@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TComponentPersonCmdDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        <result column="id" property="id"/>
+        <result column="belong_user_id" property="belongUserId"/>
+        <result column="name" property="name"/>
+        <result column="redhat_cmd" property="redhatCmd"/>
+        <result column="debian_cmd" property="debianCmd"/>
+        <result column="bin_cmd" property="binCmd"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        INSERT INTO `t_component_person_cmd`(
+        `id` ,
+        `belong_user_id` ,
+        `name` ,
+        `redhat_cmd` ,
+        `debian_cmd` ,
+        `bin_cmd` ,
+        `status` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` 
+        )VALUE(
+          #{id}  ,
+          #{belongUserId}  ,
+          #{name}  ,
+          #{redhatCmd}  ,
+          #{debianCmd}  ,
+          #{binCmd}  ,
+          #{status}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_component_person_cmd`(
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `redhat_cmd`,
+        `debian_cmd`,
+        `bin_cmd`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.belongUserId},
+            #{item.name},
+            #{item.redhatCmd},
+            #{item.debianCmd},
+            #{item.binCmd},
+            #{item.status},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TComponentPersonCmdVo"
+            parameterType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        SELECT
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `redhat_cmd`,
+        `debian_cmd`,
+        `bin_cmd`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_component_person_cmd`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongUserId != null">
+                AND `belong_user_id` = #{belongUserId}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="redhatCmd != null">
+                AND `redhat_cmd` = #{redhatCmd}
+            </if>
+            <if test="debianCmd != null">
+                AND `debian_cmd` = #{debianCmd}
+            </if>
+            <if test="binCmd != null">
+                AND `bin_cmd` = #{binCmd}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        UPDATE `t_component_person_cmd`
+        <set>
+            <if test="source.belongUserId != null">
+                `belong_user_id` = #{source.belongUserId},
+            </if>
+            <if test="source.name != null">
+                `name` = #{source.name},
+            </if>
+            <if test="source.redhatCmd != null">
+                `redhat_cmd` = #{source.redhatCmd},
+            </if>
+            <if test="source.debianCmd != null">
+                `debian_cmd` = #{source.debianCmd},
+            </if>
+            <if test="source.binCmd != null">
+                `bin_cmd` = #{source.binCmd},
+            </if>
+            <if test="source.status != null">
+                `status` = #{source.status},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.deleteFlag != null">
+                `delete_flag` = #{source.deleteFlag}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongUserId != null">
+                AND `belong_user_id` = #{target.belongUserId}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.redhatCmd != null">
+                AND `redhat_cmd` = #{target.redhatCmd}
+            </if>
+            <if test="target.debianCmd != null">
+                AND `debian_cmd` = #{target.debianCmd}
+            </if>
+            <if test="target.binCmd != null">
+                AND `bin_cmd` = #{target.binCmd}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        UPDATE `t_component_person_cmd`
+        <set>
+            `belong_user_id` = #{source.belongUserId},
+            `name` = #{source.name},
+            `redhat_cmd` = #{source.redhatCmd},
+            `debian_cmd` = #{source.debianCmd},
+            `bin_cmd` = #{source.binCmd},
+            `status` = #{source.status},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `delete_flag` = #{source.deleteFlag}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongUserId != null">
+                AND `belong_user_id` = #{target.belongUserId}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.redhatCmd != null">
+                AND `redhat_cmd` = #{target.redhatCmd}
+            </if>
+            <if test="target.debianCmd != null">
+                AND `debian_cmd` = #{target.debianCmd}
+            </if>
+            <if test="target.binCmd != null">
+                AND `bin_cmd` = #{target.binCmd}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        DELETE FROM `t_component_person_cmd`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongUserId != null">
+                AND `belong_user_id` = #{belongUserId}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="redhatCmd != null">
+                AND `redhat_cmd` = #{redhatCmd}
+            </if>
+            <if test="debianCmd != null">
+                AND `debian_cmd` = #{debianCmd}
+            </if>
+            <if test="binCmd != null">
+                AND `bin_cmd` = #{binCmd}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TComponentPersonCmdVo">
+        SELECT
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `redhat_cmd`,
+        `debian_cmd`,
+        `bin_cmd`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_component_person_cmd`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_component_person_cmd`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+</mapper>

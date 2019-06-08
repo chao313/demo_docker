@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TComponentCommonFileDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="redhat_file" property="redhatFile"/>
+        <result column="debian_file" property="debianFile"/>
+        <result column="bin_file" property="binFile"/>
+        <result column="status" property="status"/>
+        <result column="location" property="location"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        INSERT INTO `t_component_common_file`(
+        `id` ,
+        `name` ,
+        `redhat_file` ,
+        `debian_file` ,
+        `bin_file` ,
+        `status` ,
+        `location` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` 
+        )VALUE(
+          #{id}  ,
+          #{name}  ,
+          #{redhatFile}  ,
+          #{debianFile}  ,
+          #{binFile}  ,
+          #{status}  ,
+          #{location}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_component_common_file`(
+        `id`,
+        `name`,
+        `redhat_file`,
+        `debian_file`,
+        `bin_file`,
+        `status`,
+        `location`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.redhatFile},
+            #{item.debianFile},
+            #{item.binFile},
+            #{item.status},
+            #{item.location},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TComponentCommonFileVo"
+            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        SELECT
+        `id`,
+        `name`,
+        `redhat_file`,
+        `debian_file`,
+        `bin_file`,
+        `status`,
+        `location`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_component_common_file`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="redhatFile != null">
+                AND `redhat_file` = #{redhatFile}
+            </if>
+            <if test="debianFile != null">
+                AND `debian_file` = #{debianFile}
+            </if>
+            <if test="binFile != null">
+                AND `bin_file` = #{binFile}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="location != null">
+                AND `location` = #{location}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        UPDATE `t_component_common_file`
+        <set>
+            <if test="source.name != null">
+                `name` = #{source.name},
+            </if>
+            <if test="source.redhatFile != null">
+                `redhat_file` = #{source.redhatFile},
+            </if>
+            <if test="source.debianFile != null">
+                `debian_file` = #{source.debianFile},
+            </if>
+            <if test="source.binFile != null">
+                `bin_file` = #{source.binFile},
+            </if>
+            <if test="source.status != null">
+                `status` = #{source.status},
+            </if>
+            <if test="source.location != null">
+                `location` = #{source.location},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.deleteFlag != null">
+                `delete_flag` = #{source.deleteFlag}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.redhatFile != null">
+                AND `redhat_file` = #{target.redhatFile}
+            </if>
+            <if test="target.debianFile != null">
+                AND `debian_file` = #{target.debianFile}
+            </if>
+            <if test="target.binFile != null">
+                AND `bin_file` = #{target.binFile}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.location != null">
+                AND `location` = #{target.location}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        UPDATE `t_component_common_file`
+        <set>
+            `name` = #{source.name},
+            `redhat_file` = #{source.redhatFile},
+            `debian_file` = #{source.debianFile},
+            `bin_file` = #{source.binFile},
+            `status` = #{source.status},
+            `location` = #{source.location},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `delete_flag` = #{source.deleteFlag}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.redhatFile != null">
+                AND `redhat_file` = #{target.redhatFile}
+            </if>
+            <if test="target.debianFile != null">
+                AND `debian_file` = #{target.debianFile}
+            </if>
+            <if test="target.binFile != null">
+                AND `bin_file` = #{target.binFile}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.location != null">
+                AND `location` = #{target.location}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        DELETE FROM `t_component_common_file`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="redhatFile != null">
+                AND `redhat_file` = #{redhatFile}
+            </if>
+            <if test="debianFile != null">
+                AND `debian_file` = #{debianFile}
+            </if>
+            <if test="binFile != null">
+                AND `bin_file` = #{binFile}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="location != null">
+                AND `location` = #{location}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+        SELECT
+        `id`,
+        `name`,
+        `redhat_file`,
+        `debian_file`,
+        `bin_file`,
+        `status`,
+        `location`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_component_common_file`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_component_common_file`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+</mapper>

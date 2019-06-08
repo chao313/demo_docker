@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TLogDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TLogVo">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="event_type" property="eventType"/>
+        <result column="event_source" property="eventSource"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TLogVo">
+        INSERT INTO `t_log`(
+        `id` ,
+        `user_id` ,
+        `user_name` ,
+        `event_type` ,
+        `event_source` ,
+        `content` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` 
+        )VALUE(
+          #{id}  ,
+          #{userId}  ,
+          #{userName}  ,
+          #{eventType}  ,
+          #{eventSource}  ,
+          #{content}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_log`(
+        `id`,
+        `user_id`,
+        `user_name`,
+        `event_type`,
+        `event_source`,
+        `content`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.userId},
+            #{item.userName},
+            #{item.eventType},
+            #{item.eventSource},
+            #{item.content},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TLogVo"
+            parameterType="demo.spring.boot.docker.vo.TLogVo">
+        SELECT
+        `id`,
+        `user_id`,
+        `user_name`,
+        `event_type`,
+        `event_source`,
+        `content`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_log`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="userId != null">
+                AND `user_id` = #{userId}
+            </if>
+            <if test="userName != null">
+                AND `user_name` = #{userName}
+            </if>
+            <if test="eventType != null">
+                AND `event_type` = #{eventType}
+            </if>
+            <if test="eventSource != null">
+                AND `event_source` = #{eventSource}
+            </if>
+            <if test="content != null">
+                AND `content` = #{content}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TLogVo">
+        UPDATE `t_log`
+        <set>
+            <if test="source.userId != null">
+                `user_id` = #{source.userId},
+            </if>
+            <if test="source.userName != null">
+                `user_name` = #{source.userName},
+            </if>
+            <if test="source.eventType != null">
+                `event_type` = #{source.eventType},
+            </if>
+            <if test="source.eventSource != null">
+                `event_source` = #{source.eventSource},
+            </if>
+            <if test="source.content != null">
+                `content` = #{source.content},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.deleteFlag != null">
+                `delete_flag` = #{source.deleteFlag}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.userId != null">
+                AND `user_id` = #{target.userId}
+            </if>
+            <if test="target.userName != null">
+                AND `user_name` = #{target.userName}
+            </if>
+            <if test="target.eventType != null">
+                AND `event_type` = #{target.eventType}
+            </if>
+            <if test="target.eventSource != null">
+                AND `event_source` = #{target.eventSource}
+            </if>
+            <if test="target.content != null">
+                AND `content` = #{target.content}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TLogVo">
+        UPDATE `t_log`
+        <set>
+            `user_id` = #{source.userId},
+            `user_name` = #{source.userName},
+            `event_type` = #{source.eventType},
+            `event_source` = #{source.eventSource},
+            `content` = #{source.content},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `delete_flag` = #{source.deleteFlag}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.userId != null">
+                AND `user_id` = #{target.userId}
+            </if>
+            <if test="target.userName != null">
+                AND `user_name` = #{target.userName}
+            </if>
+            <if test="target.eventType != null">
+                AND `event_type` = #{target.eventType}
+            </if>
+            <if test="target.eventSource != null">
+                AND `event_source` = #{target.eventSource}
+            </if>
+            <if test="target.content != null">
+                AND `content` = #{target.content}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TLogVo">
+        DELETE FROM `t_log`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="userId != null">
+                AND `user_id` = #{userId}
+            </if>
+            <if test="userName != null">
+                AND `user_name` = #{userName}
+            </if>
+            <if test="eventType != null">
+                AND `event_type` = #{eventType}
+            </if>
+            <if test="eventSource != null">
+                AND `event_source` = #{eventSource}
+            </if>
+            <if test="content != null">
+                AND `content` = #{content}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TLogVo">
+        SELECT
+        `id`,
+        `user_id`,
+        `user_name`,
+        `event_type`,
+        `event_source`,
+        `content`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_log`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_log`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+</mapper>

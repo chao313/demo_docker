@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TUserDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TUserVo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="approve_status" property="approveStatus"/>
+        <result column="white_list_user" property="whiteListUser"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TUserVo">
+        INSERT INTO `t_user`(
+        `id` ,
+        `name` ,
+        `password` ,
+        `salt` ,
+        `phone` ,
+        `email` ,
+        `status` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` ,
+        `approve_status` ,
+        `white_list_user` 
+        )VALUE(
+          #{id}  ,
+          #{name}  ,
+          #{password}  ,
+          #{salt}  ,
+          #{phone}  ,
+          #{email}  ,
+          #{status}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  ,
+          #{approveStatus}  ,
+          #{whiteListUser}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_user`(
+        `id`,
+        `name`,
+        `password`,
+        `salt`,
+        `phone`,
+        `email`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `approve_status`,
+        `white_list_user`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.password},
+            #{item.salt},
+            #{item.phone},
+            #{item.email},
+            #{item.status},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag},
+            #{item.approveStatus},
+            #{item.whiteListUser}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TUserVo"
+            parameterType="demo.spring.boot.docker.vo.TUserVo">
+        SELECT
+        `id`,
+        `name`,
+        `password`,
+        `salt`,
+        `phone`,
+        `email`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `approve_status`,
+        `white_list_user`
+        FROM `t_user`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="password != null">
+                AND `password` = #{password}
+            </if>
+            <if test="salt != null">
+                AND `salt` = #{salt}
+            </if>
+            <if test="phone != null">
+                AND `phone` = #{phone}
+            </if>
+            <if test="email != null">
+                AND `email` = #{email}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+            <if test="approveStatus != null">
+                AND `approve_status` = #{approveStatus}
+            </if>
+            <if test="whiteListUser != null">
+                AND `white_list_user` = #{whiteListUser}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TUserVo">
+        UPDATE `t_user`
+        <set>
+            <if test="source.name != null">
+                `name` = #{source.name},
+            </if>
+            <if test="source.password != null">
+                `password` = #{source.password},
+            </if>
+            <if test="source.salt != null">
+                `salt` = #{source.salt},
+            </if>
+            <if test="source.phone != null">
+                `phone` = #{source.phone},
+            </if>
+            <if test="source.email != null">
+                `email` = #{source.email},
+            </if>
+            <if test="source.status != null">
+                `status` = #{source.status},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.deleteFlag != null">
+                `delete_flag` = #{source.deleteFlag},
+            </if>
+            <if test="source.approveStatus != null">
+                `approve_status` = #{source.approveStatus},
+            </if>
+            <if test="source.whiteListUser != null">
+                `white_list_user` = #{source.whiteListUser}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.password != null">
+                AND `password` = #{target.password}
+            </if>
+            <if test="target.salt != null">
+                AND `salt` = #{target.salt}
+            </if>
+            <if test="target.phone != null">
+                AND `phone` = #{target.phone}
+            </if>
+            <if test="target.email != null">
+                AND `email` = #{target.email}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+            <if test="target.approveStatus != null">
+                AND `approve_status` = #{target.approveStatus}
+            </if>
+            <if test="target.whiteListUser != null">
+                AND `white_list_user` = #{target.whiteListUser}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TUserVo">
+        UPDATE `t_user`
+        <set>
+            `name` = #{source.name},
+            `password` = #{source.password},
+            `salt` = #{source.salt},
+            `phone` = #{source.phone},
+            `email` = #{source.email},
+            `status` = #{source.status},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `delete_flag` = #{source.deleteFlag},
+            `approve_status` = #{source.approveStatus},
+            `white_list_user` = #{source.whiteListUser}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.password != null">
+                AND `password` = #{target.password}
+            </if>
+            <if test="target.salt != null">
+                AND `salt` = #{target.salt}
+            </if>
+            <if test="target.phone != null">
+                AND `phone` = #{target.phone}
+            </if>
+            <if test="target.email != null">
+                AND `email` = #{target.email}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+            <if test="target.approveStatus != null">
+                AND `approve_status` = #{target.approveStatus}
+            </if>
+            <if test="target.whiteListUser != null">
+                AND `white_list_user` = #{target.whiteListUser}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TUserVo">
+        DELETE FROM `t_user`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="password != null">
+                AND `password` = #{password}
+            </if>
+            <if test="salt != null">
+                AND `salt` = #{salt}
+            </if>
+            <if test="phone != null">
+                AND `phone` = #{phone}
+            </if>
+            <if test="email != null">
+                AND `email` = #{email}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+            <if test="approveStatus != null">
+                AND `approve_status` = #{approveStatus}
+            </if>
+            <if test="whiteListUser != null">
+                AND `white_list_user` = #{whiteListUser}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TUserVo">
+        SELECT
+        `id`,
+        `name`,
+        `password`,
+        `salt`,
+        `phone`,
+        `email`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `approve_status`,
+        `white_list_user`
+        FROM `t_user`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_user`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+</mapper>

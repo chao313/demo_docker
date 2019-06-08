@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TRemoteHostOperateDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        <result column="id" property="id"/>
+        <result column="belong_remote_id" property="belongRemoteId"/>
+        <result column="operate_user_id" property="operateUserId"/>
+        <result column="operate_cmd" property="operateCmd"/>
+        <result column="operate_response" property="operateResponse"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        INSERT INTO `t_remote_host_operate`(
+        `id` ,
+        `belong_remote_id` ,
+        `operate_user_id` ,
+        `operate_cmd` ,
+        `operate_response` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` 
+        )VALUE(
+          #{id}  ,
+          #{belongRemoteId}  ,
+          #{operateUserId}  ,
+          #{operateCmd}  ,
+          #{operateResponse}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_remote_host_operate`(
+        `id`,
+        `belong_remote_id`,
+        `operate_user_id`,
+        `operate_cmd`,
+        `operate_response`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.belongRemoteId},
+            #{item.operateUserId},
+            #{item.operateCmd},
+            #{item.operateResponse},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TRemoteHostOperateVo"
+            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        SELECT
+        `id`,
+        `belong_remote_id`,
+        `operate_user_id`,
+        `operate_cmd`,
+        `operate_response`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_remote_host_operate`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongRemoteId != null">
+                AND `belong_remote_id` = #{belongRemoteId}
+            </if>
+            <if test="operateUserId != null">
+                AND `operate_user_id` = #{operateUserId}
+            </if>
+            <if test="operateCmd != null">
+                AND `operate_cmd` = #{operateCmd}
+            </if>
+            <if test="operateResponse != null">
+                AND `operate_response` = #{operateResponse}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        UPDATE `t_remote_host_operate`
+        <set>
+            <if test="source.belongRemoteId != null">
+                `belong_remote_id` = #{source.belongRemoteId},
+            </if>
+            <if test="source.operateUserId != null">
+                `operate_user_id` = #{source.operateUserId},
+            </if>
+            <if test="source.operateCmd != null">
+                `operate_cmd` = #{source.operateCmd},
+            </if>
+            <if test="source.operateResponse != null">
+                `operate_response` = #{source.operateResponse},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.deleteFlag != null">
+                `delete_flag` = #{source.deleteFlag}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongRemoteId != null">
+                AND `belong_remote_id` = #{target.belongRemoteId}
+            </if>
+            <if test="target.operateUserId != null">
+                AND `operate_user_id` = #{target.operateUserId}
+            </if>
+            <if test="target.operateCmd != null">
+                AND `operate_cmd` = #{target.operateCmd}
+            </if>
+            <if test="target.operateResponse != null">
+                AND `operate_response` = #{target.operateResponse}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        UPDATE `t_remote_host_operate`
+        <set>
+            `belong_remote_id` = #{source.belongRemoteId},
+            `operate_user_id` = #{source.operateUserId},
+            `operate_cmd` = #{source.operateCmd},
+            `operate_response` = #{source.operateResponse},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `delete_flag` = #{source.deleteFlag}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongRemoteId != null">
+                AND `belong_remote_id` = #{target.belongRemoteId}
+            </if>
+            <if test="target.operateUserId != null">
+                AND `operate_user_id` = #{target.operateUserId}
+            </if>
+            <if test="target.operateCmd != null">
+                AND `operate_cmd` = #{target.operateCmd}
+            </if>
+            <if test="target.operateResponse != null">
+                AND `operate_response` = #{target.operateResponse}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        DELETE FROM `t_remote_host_operate`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongRemoteId != null">
+                AND `belong_remote_id` = #{belongRemoteId}
+            </if>
+            <if test="operateUserId != null">
+                AND `operate_user_id` = #{operateUserId}
+            </if>
+            <if test="operateCmd != null">
+                AND `operate_cmd` = #{operateCmd}
+            </if>
+            <if test="operateResponse != null">
+                AND `operate_response` = #{operateResponse}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+        SELECT
+        `id`,
+        `belong_remote_id`,
+        `operate_user_id`,
+        `operate_cmd`,
+        `operate_response`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_remote_host_operate`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_remote_host_operate`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+</mapper>

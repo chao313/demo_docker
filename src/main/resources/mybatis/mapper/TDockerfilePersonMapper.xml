@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TDockerfilePersonDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        <result column="id" property="id"/>
+        <result column="belong_user_id" property="belongUserId"/>
+        <result column="name" property="name"/>
+        <result column="dockerfile_base_image" property="dockerfileBaseImage"/>
+        <result column="dockerfile" property="dockerfile"/>
+        <result column="dockerfile_targert_name" property="dockerfileTargertName"/>
+        <result column="dockerfile_git" property="dockerfileGit"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        INSERT INTO `t_dockerfile_person`(
+        `id` ,
+        `belong_user_id` ,
+        `name` ,
+        `dockerfile_base_image` ,
+        `dockerfile` ,
+        `dockerfile_targert_name` ,
+        `dockerfile_git` ,
+        `status` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` 
+        )VALUE(
+          #{id}  ,
+          #{belongUserId}  ,
+          #{name}  ,
+          #{dockerfileBaseImage}  ,
+          #{dockerfile}  ,
+          #{dockerfileTargertName}  ,
+          #{dockerfileGit}  ,
+          #{status}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_dockerfile_person`(
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `dockerfile_base_image`,
+        `dockerfile`,
+        `dockerfile_targert_name`,
+        `dockerfile_git`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.belongUserId},
+            #{item.name},
+            #{item.dockerfileBaseImage},
+            #{item.dockerfile},
+            #{item.dockerfileTargertName},
+            #{item.dockerfileGit},
+            #{item.status},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TDockerfilePersonVo"
+            parameterType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        SELECT
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `dockerfile_base_image`,
+        `dockerfile`,
+        `dockerfile_targert_name`,
+        `dockerfile_git`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_dockerfile_person`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongUserId != null">
+                AND `belong_user_id` = #{belongUserId}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="dockerfileBaseImage != null">
+                AND `dockerfile_base_image` = #{dockerfileBaseImage}
+            </if>
+            <if test="dockerfile != null">
+                AND `dockerfile` = #{dockerfile}
+            </if>
+            <if test="dockerfileTargertName != null">
+                AND `dockerfile_targert_name` = #{dockerfileTargertName}
+            </if>
+            <if test="dockerfileGit != null">
+                AND `dockerfile_git` = #{dockerfileGit}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        UPDATE `t_dockerfile_person`
+        <set>
+            <if test="source.belongUserId != null">
+                `belong_user_id` = #{source.belongUserId},
+            </if>
+            <if test="source.name != null">
+                `name` = #{source.name},
+            </if>
+            <if test="source.dockerfileBaseImage != null">
+                `dockerfile_base_image` = #{source.dockerfileBaseImage},
+            </if>
+            <if test="source.dockerfile != null">
+                `dockerfile` = #{source.dockerfile},
+            </if>
+            <if test="source.dockerfileTargertName != null">
+                `dockerfile_targert_name` = #{source.dockerfileTargertName},
+            </if>
+            <if test="source.dockerfileGit != null">
+                `dockerfile_git` = #{source.dockerfileGit},
+            </if>
+            <if test="source.status != null">
+                `status` = #{source.status},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongUserId != null">
+                AND `belong_user_id` = #{target.belongUserId}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.dockerfileBaseImage != null">
+                AND `dockerfile_base_image` = #{target.dockerfileBaseImage}
+            </if>
+            <if test="target.dockerfile != null">
+                AND `dockerfile` = #{target.dockerfile}
+            </if>
+            <if test="target.dockerfileTargertName != null">
+                AND `dockerfile_targert_name` = #{target.dockerfileTargertName}
+            </if>
+            <if test="target.dockerfileGit != null">
+                AND `dockerfile_git` = #{target.dockerfileGit}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        UPDATE `t_dockerfile_person`
+        <set>
+            `belong_user_id` = #{source.belongUserId},
+            `name` = #{source.name},
+            `dockerfile_base_image` = #{source.dockerfileBaseImage},
+            `dockerfile` = #{source.dockerfile},
+            `dockerfile_targert_name` = #{source.dockerfileTargertName},
+            `dockerfile_git` = #{source.dockerfileGit},
+            `status` = #{source.status},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.belongUserId != null">
+                AND `belong_user_id` = #{target.belongUserId}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.dockerfileBaseImage != null">
+                AND `dockerfile_base_image` = #{target.dockerfileBaseImage}
+            </if>
+            <if test="target.dockerfile != null">
+                AND `dockerfile` = #{target.dockerfile}
+            </if>
+            <if test="target.dockerfileTargertName != null">
+                AND `dockerfile_targert_name` = #{target.dockerfileTargertName}
+            </if>
+            <if test="target.dockerfileGit != null">
+                AND `dockerfile_git` = #{target.dockerfileGit}
+            </if>
+            <if test="target.status != null">
+                AND `status` = #{target.status}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        DELETE FROM `t_dockerfile_person`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="belongUserId != null">
+                AND `belong_user_id` = #{belongUserId}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="dockerfileBaseImage != null">
+                AND `dockerfile_base_image` = #{dockerfileBaseImage}
+            </if>
+            <if test="dockerfile != null">
+                AND `dockerfile` = #{dockerfile}
+            </if>
+            <if test="dockerfileTargertName != null">
+                AND `dockerfile_targert_name` = #{dockerfileTargertName}
+            </if>
+            <if test="dockerfileGit != null">
+                AND `dockerfile_git` = #{dockerfileGit}
+            </if>
+            <if test="status != null">
+                AND `status` = #{status}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TDockerfilePersonVo">
+        SELECT
+        `id`,
+        `belong_user_id`,
+        `name`,
+        `dockerfile_base_image`,
+        `dockerfile`,
+        `dockerfile_targert_name`,
+        `dockerfile_git`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`
+        FROM `t_dockerfile_person`
+        <where>
+            1 =1
+            AND `id` = #{id}
+            AND `delete_flag` = #{deleteFlag}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_dockerfile_person`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+               AND `delete_flag` = #{deleteFlag}
+        </where>
+    </delete>
+
+</mapper>
