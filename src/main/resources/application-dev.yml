@@ -30,7 +30,7 @@ spring:
 #  效果相同
 #  @MapperScan(value = "demo.spring.boot.demospringboot.mybatis.dao")
 mybatis:
-  mapper-locations: classpath:mybatis/dao/*Mapper.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
   config-location: classpath:mybatis/config/mybatis-config.xml
 
 
