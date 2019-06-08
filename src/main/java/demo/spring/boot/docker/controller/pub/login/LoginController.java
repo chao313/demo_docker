@@ -1,5 +1,6 @@
 package demo.spring.boot.docker.controller.pub.login;
 
+import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.enums.DeleteStatus;
 import demo.spring.boot.docker.enums.UseStatus;
 import demo.spring.boot.docker.framework.Response;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/login")
@@ -24,6 +24,9 @@ public class LoginController {
 
     @Autowired
     private TUserService tUserService;
+
+    @Autowired
+    private SessionComponent sessionComponent;
 
     /**
      * 登陆
@@ -39,11 +42,22 @@ public class LoginController {
         query.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
         List<TUserVo> tUserVos = tUserService.queryBase(query);
         if (tUserVos.size() == 1) {
+            sessionComponent.setLoginUserVo(tUserVos.get(0));
             return Response.ok(true);
         } else {
             return Response.fail(false);
         }
     }
+
+    /**
+     * 注销
+     */
+    @RequestMapping(value = {"/loginOff"}, method = RequestMethod.GET)
+    public Response loginOff() {
+        sessionComponent.loginOff();
+        return Response.ok(true);
+    }
+
 
     /**
      * 注册
@@ -57,7 +71,7 @@ public class LoginController {
         query.setStatus(UseStatus.IN_USE.getIndex());
         query.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
         List<TUserVo> tUserVos = tUserService.queryBase(query);
-        if (tUserVos.size() > 1) {
+        if (tUserVos.size() > 0) {
             return Response.fail(false, "注册的用户名已经存在");
         } else {
             String id = UUIDUtils.generateUUID();
@@ -66,7 +80,7 @@ public class LoginController {
             query.setSalt(MD5Utils.encodeByMD5(id));
             query.setCreateTime(new Timestamp(new Date().getTime()));
             boolean bool = tUserService.insert(query);
-            return Response.ok(bool,"注册成功");
+            return Response.ok(bool, "注册成功");
         }
     }
 
