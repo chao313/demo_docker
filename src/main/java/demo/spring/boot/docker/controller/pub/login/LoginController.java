@@ -8,6 +8,7 @@ import demo.spring.boot.docker.service.TUserService;
 import demo.spring.boot.docker.util.MD5Utils;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.vo.TUserVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,21 @@ public class LoginController {
     /**
      * 登陆
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    @ApiOperation(value = "用户登陆", notes = "用户登陆")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(
+                    name = "X-CSRF-TOKEN",
+                    value = "用户Token",
+                    dataType = "string",
+                    paramType = "header",
+                    example = "xxxx",
+                    required = true)
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful — 请求已完成"),
+            @ApiResponse(code = 500, message = "服务器不能完成请求")
+    })
+    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public Response login(@RequestParam(value = "name") String name,
                           @RequestParam(value = "passwd") String passwd
     ) {
