@@ -25,7 +25,7 @@ public class FrameworkController {
             response.setCode(Code.System.OK);
             response.setMsg(Code.System.SERVER_SUCCESS_MSG);
             logger.info("SUCCESS:{}", true);
-            response.setData(true);
+            response.setContent(true);
         } catch (Exception e) {
             response.setCode(Code.System.FAIL);
             response.setMsg(e.toString());

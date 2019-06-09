@@ -39,7 +39,7 @@ public class AuthHeaderAspectController {
         Response response = new Response();
         response.setCode(Code.System.OK);
         response.setMsg(Code.System.SERVER_SUCCESS_MSG);
-        response.setData(one / two);
+        response.setContent(one / two);
         return response;
     }
 
