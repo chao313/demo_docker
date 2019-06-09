@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/csrfToken")
+@RequestMapping(value = "/Token")
 public class TokenController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class TokenController {
      * 如果不存在 ，生成新的 CsrfToken
      */
     @ApiOperation(value = "生成CsrfToken", notes = "如果存在，获取当前的 CsrfToken <br> 如果不存在 ，生成新的 CsrfToken")
-    @RequestMapping(value = {"/getCsrfTokenNotReplace"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/TokenCsrfGetNotReplace"}, method = RequestMethod.GET)
     public Response getCsrfTokenNotReplace(HttpServletRequest request, HttpServletResponse response) {
         CsrfToken token = csrfTokenRepository.generateTokenNotReplace(request);
         csrfTokenRepository.saveToken(token, request, response);
@@ -49,7 +49,7 @@ public class TokenController {
     }
 
     @ApiOperation(value = "生成CsrfToken", notes = "存在不存在都会生成新的 CsrfToken")
-    @RequestMapping(value = {"/getCsrfToken"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/TokenCsrfGet"}, method = RequestMethod.GET)
     public Response getCsrfToken(HttpServletRequest request, HttpServletResponse response) {
         CsrfToken token = csrfTokenRepository.generateToken(request);
         csrfTokenRepository.saveToken(token, request, response);
