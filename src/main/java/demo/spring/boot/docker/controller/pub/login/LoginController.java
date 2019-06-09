@@ -9,17 +9,14 @@ import demo.spring.boot.docker.util.MD5Utils;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.vo.TUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/user")
 public class LoginController {
 
     @Autowired
@@ -52,7 +49,7 @@ public class LoginController {
     /**
      * 注销
      */
-    @RequestMapping(value = {"/loginOff"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/loginOff"}, method = RequestMethod.POST)
     public Response loginOff() {
         sessionComponent.loginOff();
         return Response.ok(true);
@@ -62,7 +59,7 @@ public class LoginController {
     /**
      * 注册
      */
-    @RequestMapping(value = {"/addUser"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     public Response addUser(@RequestParam(value = "name") String name,
                             @RequestParam(value = "passwd") String passwd
     ) {
