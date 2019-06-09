@@ -27,7 +27,7 @@ public class AuthHeaderAspect {
      * 使用execution表达式
      * 拦截controller目录下的auth包中进行拦截
      */
-    @Pointcut("execution(* demo.spring.boot.demospringboot.controller.auth.*.*(..))")
+    @Pointcut("execution(* demo.spring.boot.docker.controller.auth.*.*(..))")
     public void pointCut() {
     }
 

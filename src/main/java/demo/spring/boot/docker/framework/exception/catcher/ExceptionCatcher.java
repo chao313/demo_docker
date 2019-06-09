@@ -28,6 +28,7 @@ public class ExceptionCatcher {
         response.setMsg(Code.System.SYSTEM_ERROR_CODE_MSG);
         response.addException(e);
         response.setError(e.getMessage());
+        e.printStackTrace();
         return response;
 
     }
