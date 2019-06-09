@@ -18,15 +18,15 @@ public class Response<T> {
     private String error;
     private List<Exception> exceptions
             = new ArrayList<Exception>();
-    private T content;
+    private T data;
 
     public Response() {
     }
 
-    public Response(String code, String msg, T content) {
+    public Response(String code, String msg, T data) {
         this.code = code;
         this.msg = msg;
-        this.content = content;
+        this.data = data;
     }
 
     public String getCode() {
@@ -61,12 +61,12 @@ public class Response<T> {
         this.exceptions.add(exception);
     }
 
-    public T getContent() {
-        return content;
+    public T getData() {
+        return data;
     }
 
-    public void setContent(T content) {
-        this.content = content;
+    public void setData(T data) {
+        this.data = data;
     }
 
     /**
