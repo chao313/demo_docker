@@ -3,6 +3,7 @@ package demo.spring.boot.docker.controller.pub.login;
 import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.enums.DeleteStatus;
 import demo.spring.boot.docker.enums.UseStatus;
+import demo.spring.boot.docker.framework.Code;
 import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TUserService;
 import demo.spring.boot.docker.util.MD5Utils;
@@ -57,7 +58,7 @@ public class LoginController {
             sessionComponent.setLoginUserVo(tUserVos.get(0));
             return Response.ok(true);
         } else {
-            return Response.fail(false);
+            return new Response(Code.UserErrors.USER_NOT_FOUND, Code.UserErrors.USER_NOT_FOUND_MSG, false);
         }
     }
 
