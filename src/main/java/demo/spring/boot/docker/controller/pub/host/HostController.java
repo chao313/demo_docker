@@ -1,25 +1,32 @@
-package demo.spring.boot.docker.controller.pub.login;
+package demo.spring.boot.docker.controller.pub.host;
 
+import com.jcraft.jsch.JSchException;
 import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.enums.DeleteStatus;
 import demo.spring.boot.docker.enums.UseStatus;
 import demo.spring.boot.docker.framework.Code;
 import demo.spring.boot.docker.framework.Response;
+import demo.spring.boot.docker.service.TRemoteHostService;
 import demo.spring.boot.docker.service.TUserService;
 import demo.spring.boot.docker.util.MD5Utils;
 import demo.spring.boot.docker.util.UUIDUtils;
+import demo.spring.boot.docker.util.ssh.Shell;
+import demo.spring.boot.docker.vo.TRemoteHostVo;
 import demo.spring.boot.docker.vo.TUserVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
-public class LoginController {
+@RequestMapping(value = "/host")
+public class HostController {
 
     @Autowired
     private TUserService tUserService;
@@ -27,10 +34,34 @@ public class LoginController {
     @Autowired
     private SessionComponent sessionComponent;
 
+    @Autowired
+    private TRemoteHostService tRemoteHostService;
+
     /**
-     * 登陆
+     * 测试host是否连接成功
      */
-    @ApiOperation(value = "用户登陆", notes = "用户登陆")
+    @ApiOperation(value = "测试host是否连接成功", notes = "测试host是否连接成功<br>" +
+            "需要提供IP+PORT+USER+PASSWD")
+    @RequestMapping(value = {"/ConnectTest"}, method = RequestMethod.GET)
+    public Response<Boolean> HostConnectTest(@RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
+                                             @RequestParam(value = "username", required = false, defaultValue = "root") String username,
+                                             @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
+                                             @RequestParam(value = "port", required = false, defaultValue = "22") int port
+    ) {
+        Shell shell = new Shell(ip, username, password, port);
+        try {
+            return Response.ok(shell.testConnect());
+        } catch (JSchException e) {
+            e.printStackTrace();
+            return Response.fail(false);
+        }
+    }
+
+    /**
+     * 添加host
+     */
+    @ApiOperation(value = "添加host", notes = "添加host<br>" +
+            "需要提供IP+PORT+USER+PASSWD")
     @ApiImplicitParams(value = {
             @ApiImplicitParam(
                     name = "X-CSRF-TOKEN",
@@ -40,61 +71,93 @@ public class LoginController {
                     example = "xxxx",
                     required = true)
     })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful — 请求已完成"),
-            @ApiResponse(code = 500, message = "服务器不能完成请求")
+    @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
+    public Response<Boolean> add(@RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
+                                 @RequestParam(value = "username", required = false, defaultValue = "root") String username,
+                                 @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
+                                 @RequestParam(value = "port", required = false, defaultValue = "22") String port,
+                                 @RequestParam(value = "remark", required = false, defaultValue = "remark") String remark
+    ) {
+        TRemoteHostVo tRemoteHostVo = new TRemoteHostVo();
+        tRemoteHostVo.setId(UUIDUtils.generateUUID());
+        tRemoteHostVo.setBelongUserId(sessionComponent.getLoginUserVo().getId());
+        tRemoteHostVo.setCreateTime(new Timestamp(new Date().getTime()));
+        tRemoteHostVo.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
+        tRemoteHostVo.setStatus(UseStatus.IN_USE.getIndex());
+        tRemoteHostVo.setHostIp(ip);
+        tRemoteHostVo.setHostUser(username);
+        tRemoteHostVo.setPasswd(password);
+        tRemoteHostVo.setPort(port);
+        tRemoteHostVo.setRemark(remark);
+        boolean result = tRemoteHostService.insert(tRemoteHostVo);
+        return Response.ok(result);
+    }
+
+    /**
+     * 查询当前用户的所有主机 未删除的，在使用的主机
+     */
+    @ApiOperation(value = "查询当前用户的所有主机", notes = "查询当前用户的所有主机<br>")
+    @RequestMapping(value = {"/queryAll"}, method = RequestMethod.GET)
+    public Response<List<TRemoteHostVo>> queryAll() {
+        TRemoteHostVo query = new TRemoteHostVo();
+        query.setBelongUserId(sessionComponent.getLoginUserVo().getId());
+        query.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
+        query.setStatus(UseStatus.IN_USE.getIndex());
+        List<TRemoteHostVo> tRemoteHostVos = tRemoteHostService.queryBase(query);
+        return Response.ok(tRemoteHostVos);
+    }
+
+    /**
+     * 根据id逻辑删除主机
+     */
+    @ApiOperation(value = "查询当前用户的所有主机", notes = "查询当前用户的所有主机<br>")
+    @RequestMapping(value = {"/deleteById"}, method = RequestMethod.DELETE)
+    public Response<Boolean> deleteById(@RequestParam(value = "id") String id) {
+        TRemoteHostVo source = new TRemoteHostVo();
+        source.setStatus(DeleteStatus.HAS_DELETED.getIndex());
+        TRemoteHostVo target = new TRemoteHostVo();
+        target.setId(id);
+        boolean bool = tRemoteHostService.updateBase(source, target);
+        return Response.ok(bool);
+    }
+
+    /**
+     * 根据ID修主机参数
+     */
+    @ApiOperation(value = "添加host", notes = "添加host<br>" +
+            "需要提供IP+PORT+USER+PASSWD")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(
+                    name = "X-CSRF-TOKEN",
+                    value = "用户Token",
+                    dataType = "string",
+                    paramType = "header",
+                    example = "xxxx",
+                    required = true)
     })
-    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-    public Response login(@RequestParam(value = "name") String name,
-                          @RequestParam(value = "passwd") String passwd
+    @RequestMapping(value = {"/updateById"}, method = RequestMethod.PATCH)
+    public Response<Boolean> updateById(@RequestParam(value = "id") String id,
+                                        @RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
+                                        @RequestParam(value = "username", required = false, defaultValue = "root") String username,
+                                        @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
+                                        @RequestParam(value = "port", required = false, defaultValue = "22") String port,
+                                        @RequestParam(value = "remark", required = false, defaultValue = "remark") String remark
     ) {
-        TUserVo query = new TUserVo();
-        query.setName(name);
-        query.setPassword(passwd);
-        query.setStatus(UseStatus.IN_USE.getIndex());
-        query.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
-        List<TUserVo> tUserVos = tUserService.queryBase(query);
-        if (tUserVos.size() == 1) {
-            sessionComponent.setLoginUserVo(tUserVos.get(0));
-            return Response.ok(true);
-        } else {
-            return new Response(Code.UserErrors.USER_NOT_FOUND, Code.UserErrors.USER_NOT_FOUND_MSG, false);
-        }
-    }
-
-    /**
-     * 注销
-     */
-    @RequestMapping(value = {"/loginOff"}, method = RequestMethod.POST)
-    public Response loginOff() {
-        sessionComponent.loginOff();
-        return Response.ok(true);
-    }
-
-
-    /**
-     * 注册
-     */
-    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
-    public Response addUser(@RequestParam(value = "name") String name,
-                            @RequestParam(value = "passwd") String passwd
-    ) {
-        TUserVo query = new TUserVo();
-        query.setName(name);
-        query.setStatus(UseStatus.IN_USE.getIndex());
-        query.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
-        List<TUserVo> tUserVos = tUserService.queryBase(query);
-        if (tUserVos.size() > 0) {
-            return Response.fail(false, "注册的用户名已经存在");
-        } else {
-            String id = UUIDUtils.generateUUID();
-            query.setId(id);
-            query.setPassword(passwd);
-            query.setSalt(MD5Utils.encodeByMD5(id));
-            query.setCreateTime(new Timestamp(new Date().getTime()));
-            boolean bool = tUserService.insert(query);
-            return Response.ok(bool, "注册成功");
-        }
+        TRemoteHostVo target = new TRemoteHostVo();
+        target.setId(id);
+        TRemoteHostVo source = new TRemoteHostVo();
+        source.setId(UUIDUtils.generateUUID());
+        source.setBelongUserId(sessionComponent.getLoginUserVo().getId());
+        source.setCreateTime(new Timestamp(new Date().getTime()));
+        source.setDeleteFlag(DeleteStatus.NOT_DELETED.getIndex());
+        source.setStatus(UseStatus.IN_USE.getIndex());
+        source.setHostIp(ip);
+        source.setHostUser(username);
+        source.setPasswd(password);
+        source.setPort(port);
+        source.setRemark(remark);
+        boolean result = tRemoteHostService.updateBase(source, target);
+        return Response.ok(result);
     }
 
 }

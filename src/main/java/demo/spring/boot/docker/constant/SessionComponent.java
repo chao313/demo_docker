@@ -13,7 +13,7 @@ public class SessionComponent {
     @Autowired
     private HttpSession httpSession;
 
-    private static String LOGIN_USER = "login_user";
+    public static String LOGIN_USER = "login_user";
 
     public static String CSRF_TOKEN_KEY = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
 

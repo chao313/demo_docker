@@ -99,6 +99,26 @@ public class Shell {
         return stdout;
     }
 
+
+    /**
+     * 测试是否能够连接到主机
+     *
+     * @return
+     * @throws JSchException
+     */
+    public boolean testConnect() throws JSchException {
+        //创建session并且打开连接，因为创建session之后要主动打开连接
+        JSch jsch = new JSch();
+        MyUserInfo userInfo = new MyUserInfo();
+        Session session = jsch.getSession(this.username, this.ip, this.port);
+        session.setPassword(this.password);
+        session.setUserInfo(userInfo);
+        session.setConfig("StrictHostKeyChecking", "no");
+        session.connect();
+        return true;
+    }
+
+
     public static void main(final String[] args) throws JSchException {
         String ip = "39.107.236.187";
         String userName = "root";
