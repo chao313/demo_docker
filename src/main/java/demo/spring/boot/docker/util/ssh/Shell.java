@@ -1,6 +1,7 @@
 package demo.spring.boot.docker.util.ssh;
 
 import com.jcraft.jsch.*;
+import demo.spring.boot.docker.vo.TRemoteHostVo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -18,6 +19,9 @@ public class Shell {
     //保存输出内容的容器
     private ArrayList<String> stdout;
 
+    public Shell() {
+    }
+
     /**
      * 初始化登录信息
      *
@@ -31,6 +35,15 @@ public class Shell {
         this.password = password;
         this.port = port;
         stdout = new ArrayList<String>();
+    }
+
+    public Shell initByTRemoteHostVo(TRemoteHostVo tRemoteHostVo) {
+        this.ip = tRemoteHostVo.getHostIp();
+        this.username = tRemoteHostVo.getHostUser();
+        this.password = tRemoteHostVo.getPasswd();
+        this.port = Integer.valueOf(tRemoteHostVo.getPort());
+        stdout = new ArrayList<String>();
+        return this;
     }
 
     /**

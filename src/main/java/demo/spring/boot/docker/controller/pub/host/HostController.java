@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,13 +111,21 @@ public class HostController {
     /**
      * 根据id逻辑删除主机
      */
-    @ApiOperation(value = "查询当前用户的所有主机", notes = "查询当前用户的所有主机<br>")
-    @RequestMapping(value = {"/deleteById"}, method = RequestMethod.DELETE)
-    public Response<Boolean> deleteById(@RequestParam(value = "id") String id) {
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(
+                    name = "X-CSRF-TOKEN",
+                    value = "用户Token",
+                    dataType = "string",
+                    paramType = "header",
+                    required = true)
+    })
+    @ApiOperation(value = "根据id逻辑删除主机", notes = "根据id逻辑删除主机")
+    @RequestMapping(value = {"/deleteByHostId"}, method = RequestMethod.DELETE)
+    public Response<Boolean> deleteByHostId(@RequestParam(value = "id") String hostId) {
         TRemoteHostVo source = new TRemoteHostVo();
         source.setStatus(DeleteStatus.HAS_DELETED.getIndex());
         TRemoteHostVo target = new TRemoteHostVo();
-        target.setId(id);
+        target.setId(hostId);
         boolean bool = tRemoteHostService.updateBase(source, target);
         return Response.ok(bool);
     }
@@ -135,16 +144,16 @@ public class HostController {
                     example = "xxxx",
                     required = true)
     })
-    @RequestMapping(value = {"/updateById"}, method = RequestMethod.PATCH)
-    public Response<Boolean> updateById(@RequestParam(value = "id") String id,
-                                        @RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
-                                        @RequestParam(value = "username", required = false, defaultValue = "root") String username,
-                                        @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
-                                        @RequestParam(value = "port", required = false, defaultValue = "22") String port,
-                                        @RequestParam(value = "remark", required = false, defaultValue = "remark") String remark
+    @RequestMapping(value = {"/updateByHostId"}, method = RequestMethod.PATCH)
+    public Response<Boolean> updateByHostId(@RequestParam(value = "id") String hostId,
+                                            @RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
+                                            @RequestParam(value = "username", required = false, defaultValue = "root") String username,
+                                            @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
+                                            @RequestParam(value = "port", required = false, defaultValue = "22") String port,
+                                            @RequestParam(value = "remark", required = false, defaultValue = "remark") String remark
     ) {
         TRemoteHostVo target = new TRemoteHostVo();
-        target.setId(id);
+        target.setId(hostId);
         TRemoteHostVo source = new TRemoteHostVo();
         source.setId(UUIDUtils.generateUUID());
         source.setBelongUserId(sessionComponent.getLoginUserVo().getId());
@@ -158,6 +167,22 @@ public class HostController {
         source.setRemark(remark);
         boolean result = tRemoteHostService.updateBase(source, target);
         return Response.ok(result);
+    }
+
+    
+    @ApiOperation(value = "根据id执行host上的命令", notes = "根据id执行host上的命令<br>ls/cd/free")
+    @RequestMapping(value = {"/executeCmdByHostId"}, method = RequestMethod.GET)
+    public Response<ArrayList<String>> executeCmdByHostId(@RequestParam(value = "id") String hostId,
+                                                          @RequestParam(value = "cmd") String cmd) {
+        TRemoteHostVo vo = tRemoteHostService.queryByPrimaryKey(hostId);
+        Shell shell = new Shell();
+        try {
+            shell.initByTRemoteHostVo(vo).execute(cmd);
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> standardOutput = shell.getStandardOutput();
+        return Response.ok(standardOutput);
     }
 
 }
