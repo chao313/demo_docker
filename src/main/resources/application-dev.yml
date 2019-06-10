@@ -22,9 +22,9 @@ spring:
   ##数据sql
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/demo_docker
+    url: jdbc:mysql://rm-bp102hwn0bc9tpy0f7o.mysql.rds.aliyuncs.com:3306/demo_docker
     username: root
-    password: 123456
+    password: Ys20140913!
 
 #  可以在application 上面加注解
 #  效果相同
