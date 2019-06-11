@@ -37,14 +37,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//扩展Spr
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
 
-
-        //拦截指定的
-        http.authorizeRequests()
-                .antMatchers(urlSecurityAuthenticated)
-                .authenticated()
-                .and().httpBasic()
-        ;
+//        //拦截指定的
+//        http.authorizeRequests()
+//                .antMatchers(urlSecurityAuthenticated)
+//                .authenticated()
+//                .and().httpBasic()
+//        ;
 
 
     }
