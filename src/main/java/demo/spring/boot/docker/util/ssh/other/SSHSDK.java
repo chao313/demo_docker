@@ -1,9 +1,7 @@
-package demo.spring.boot.docker.util.ssh;
+package demo.spring.boot.docker.util.ssh.other;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.io.*;

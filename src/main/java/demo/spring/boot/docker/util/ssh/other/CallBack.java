@@ -1,4 +1,4 @@
-package demo.spring.boot.docker.util.ssh;
+package demo.spring.boot.docker.util.ssh.other;
 
 import java.io.IOException;
 import java.io.InputStream;

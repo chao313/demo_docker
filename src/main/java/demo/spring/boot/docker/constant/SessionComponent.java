@@ -1,6 +1,6 @@
 package demo.spring.boot.docker.constant;
 
-import demo.spring.boot.docker.util.ssh.ShellSDK;
+import demo.spring.boot.docker.util.ssh.other.ShellSDK;
 import demo.spring.boot.docker.vo.TUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.DefaultCsrfToken;

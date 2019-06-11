@@ -1,4 +1,4 @@
-package demo.spring.boot.docker.util.ssh;
+package demo.spring.boot.docker.util.ssh.other;
 
 import com.jcraft.jsch.*;
 import demo.spring.boot.docker.vo.TRemoteHostVo;

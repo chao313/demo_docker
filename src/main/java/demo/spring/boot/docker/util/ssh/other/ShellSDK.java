@@ -1,4 +1,4 @@
-package demo.spring.boot.docker.util.ssh;
+package demo.spring.boot.docker.util.ssh.other;
 
 import com.jcraft.jsch.*;
 import demo.spring.boot.docker.util.UUIDUtils;
@@ -45,7 +45,7 @@ public class ShellSDK {
         this.username = username;
         this.password = password;
         this.port = port;
-        stdout = new ArrayList<String>();
+        stdout = new ArrayList<>();
     }
 
     public ShellSDK(TRemoteHostVo tRemoteHostVo) throws JSchException {
@@ -66,6 +66,7 @@ public class ShellSDK {
         this.session.setUserInfo(userInfo);
         this.session.setConfig("StrictHostKeyChecking", "no");
         this.session.connect();
+        this.channelExec = (ChannelExec) this.session.openChannel("exec");
         return this;
     }
 
@@ -79,27 +80,27 @@ public class ShellSDK {
      */
     public int execute(final String command) throws JSchException, IOException {
         //开启执行通道
-        this.channelExec = (ChannelExec) this.session.openChannel("exec");
+//        this.channelExec = (ChannelExec) this.session.openChannel("exec");
         int returnCode = 0;
         channelExec.setCommand(command);
         channelExec.setInputStream(null);
         this.input = new BufferedReader(new InputStreamReader
                 (channelExec.getInputStream()));
 
-        channelExec.connect();
+//        channelExec.connect();
         //接收远程服务器执行命令的结果
         String line;
         while ((line = input.readLine()) != null) {
             stdout.add(line);
         }
-        input.close();
+//        input.close();
 
         // 得到returnCode
         if (channelExec.isClosed()) {
             returnCode = channelExec.getExitStatus();
         }
         //关闭执行通道
-        this.channelExec.disconnect();
+//        this.channelExec.disconnect();
         return returnCode;
     }
 
