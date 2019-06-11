@@ -19,12 +19,17 @@ spring:
     content-type: text/html
     cache: false
     suffix: .html
-  ##数据sql
+  #  ##数据sql
+  #  datasource:
+  #    driver-class-name: com.mysql.jdbc.Driver
+  #    url: jdbc:mysql://rm-bp102hwn0bc9tpy0f7o.mysql.rds.aliyuncs.com:3306/demo_docker
+  #    username: root
+  #    password: Ys20140913!
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-bp102hwn0bc9tpy0f7o.mysql.rds.aliyuncs.com:3306/demo_docker
+    url: jdbc:mysql://127.0.0.1:3306/demo_docker?useUnicode=true&characterEncoding=utf8
     username: root
-    password: Ys20140913!
+    password: 123456
 
 #  可以在application 上面加注解
 #  效果相同

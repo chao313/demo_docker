@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.spring.boot.docker.mybatis.dao.TCommonCmdDao">
+
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TCommonCmdVo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="cmd" property="cmd"/>
+        <result column="dependent" property="dependent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="operating_system" property="operatingSystem"/>
+        <result column="upper_version" property="upperVersion"/>
+        <result column="lower_version" property="lowerVersion"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        INSERT INTO `t_common_cmd`(
+        `id` ,
+        `name` ,
+        `remark` ,
+        `cmd` ,
+        `dependent` ,
+        `create_time` ,
+        `update_time` ,
+        `delete_flag` ,
+        `operating_system` ,
+        `upper_version` ,
+        `lower_version` 
+        )VALUE(
+          #{id}  ,
+          #{name}  ,
+          #{remark}  ,
+          #{cmd}  ,
+          #{dependent}  ,
+          #{createTime}  ,
+          #{updateTime}  ,
+          #{deleteFlag}  ,
+          #{operatingSystem}  ,
+          #{upperVersion}  ,
+          #{lowerVersion}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_common_cmd`(
+        `id`,
+        `name`,
+        `remark`,
+        `cmd`,
+        `dependent`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `operating_system`,
+        `upper_version`,
+        `lower_version`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.remark},
+            #{item.cmd},
+            #{item.dependent},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.deleteFlag},
+            #{item.operatingSystem},
+            #{item.upperVersion},
+            #{item.lowerVersion}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TCommonCmdVo"
+            parameterType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        SELECT
+        `id`,
+        `name`,
+        `remark`,
+        `cmd`,
+        `dependent`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `operating_system`,
+        `upper_version`,
+        `lower_version`
+        FROM `t_common_cmd`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="remark != null">
+                AND `remark` = #{remark}
+            </if>
+            <if test="cmd != null">
+                AND `cmd` = #{cmd}
+            </if>
+            <if test="dependent != null">
+                AND `dependent` = #{dependent}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+            <if test="operatingSystem != null">
+                AND `operating_system` = #{operatingSystem}
+            </if>
+            <if test="upperVersion != null">
+                AND `upper_version` = #{upperVersion}
+            </if>
+            <if test="lowerVersion != null">
+                AND `lower_version` = #{lowerVersion}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        UPDATE `t_common_cmd`
+        <set>
+            <if test="source.name != null">
+                `name` = #{source.name},
+            </if>
+            <if test="source.remark != null">
+                `remark` = #{source.remark},
+            </if>
+            <if test="source.cmd != null">
+                `cmd` = #{source.cmd},
+            </if>
+            <if test="source.dependent != null">
+                `dependent` = #{source.dependent},
+            </if>
+            <if test="source.createTime != null">
+                `create_time` = #{source.createTime},
+            </if>
+            <if test="source.updateTime != null">
+                `update_time` = #{source.updateTime},
+            </if>
+            <if test="source.operatingSystem != null">
+                `operating_system` = #{source.operatingSystem},
+            </if>
+            <if test="source.upperVersion != null">
+                `upper_version` = #{source.upperVersion},
+            </if>
+            <if test="source.lowerVersion != null">
+                `lower_version` = #{source.lowerVersion}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.remark != null">
+                AND `remark` = #{target.remark}
+            </if>
+            <if test="target.cmd != null">
+                AND `cmd` = #{target.cmd}
+            </if>
+            <if test="target.dependent != null">
+                AND `dependent` = #{target.dependent}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+            <if test="target.operatingSystem != null">
+                AND `operating_system` = #{target.operatingSystem}
+            </if>
+            <if test="target.upperVersion != null">
+                AND `upper_version` = #{target.upperVersion}
+            </if>
+            <if test="target.lowerVersion != null">
+                AND `lower_version` = #{target.lowerVersion}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        UPDATE `t_common_cmd`
+        <set>
+            `name` = #{source.name},
+            `remark` = #{source.remark},
+            `cmd` = #{source.cmd},
+            `dependent` = #{source.dependent},
+            `create_time` = #{source.createTime},
+            `update_time` = #{source.updateTime},
+            `operating_system` = #{source.operatingSystem},
+            `upper_version` = #{source.upperVersion},
+            `lower_version` = #{source.lowerVersion}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.name != null">
+                AND `name` = #{target.name}
+            </if>
+            <if test="target.remark != null">
+                AND `remark` = #{target.remark}
+            </if>
+            <if test="target.cmd != null">
+                AND `cmd` = #{target.cmd}
+            </if>
+            <if test="target.dependent != null">
+                AND `dependent` = #{target.dependent}
+            </if>
+            <if test="target.createTime != null">
+                AND `create_time` = #{target.createTime}
+            </if>
+            <if test="target.updateTime != null">
+                AND `update_time` = #{target.updateTime}
+            </if>
+            <if test="target.deleteFlag != null">
+                AND `delete_flag` = #{target.deleteFlag}
+            </if>
+            <if test="target.operatingSystem != null">
+                AND `operating_system` = #{target.operatingSystem}
+            </if>
+            <if test="target.upperVersion != null">
+                AND `upper_version` = #{target.upperVersion}
+            </if>
+            <if test="target.lowerVersion != null">
+                AND `lower_version` = #{target.lowerVersion}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        DELETE FROM `t_common_cmd`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="remark != null">
+                AND `remark` = #{remark}
+            </if>
+            <if test="cmd != null">
+                AND `cmd` = #{cmd}
+            </if>
+            <if test="dependent != null">
+                AND `dependent` = #{dependent}
+            </if>
+            <if test="createTime != null">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND `update_time` = #{updateTime}
+            </if>
+            <if test="deleteFlag != null">
+                AND `delete_flag` = #{deleteFlag}
+            </if>
+            <if test="operatingSystem != null">
+                AND `operating_system` = #{operatingSystem}
+            </if>
+            <if test="upperVersion != null">
+                AND `upper_version` = #{upperVersion}
+            </if>
+            <if test="lowerVersion != null">
+                AND `lower_version` = #{lowerVersion}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demo.spring.boot.docker.vo.TCommonCmdVo">
+        SELECT
+        `id`,
+        `name`,
+        `remark`,
+        `cmd`,
+        `dependent`,
+        `create_time`,
+        `update_time`,
+        `delete_flag`,
+        `operating_system`,
+        `upper_version`,
+        `lower_version`
+        FROM `t_common_cmd`
+        <where>
+            1 =1
+            AND `id` = #{id}
+            AND `delete_flag` = #{deleteFlag}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_common_cmd`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+               AND `delete_flag` = #{deleteFlag}
+        </where>
+    </delete>
+
+</mapper>
