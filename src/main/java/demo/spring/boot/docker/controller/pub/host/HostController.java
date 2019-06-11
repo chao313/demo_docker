@@ -169,20 +169,4 @@ public class HostController {
         return Response.ok(result);
     }
 
-    
-    @ApiOperation(value = "根据id执行host上的命令", notes = "根据id执行host上的命令<br>ls/cd/free")
-    @RequestMapping(value = {"/executeCmdByHostId"}, method = RequestMethod.GET)
-    public Response<ArrayList<String>> executeCmdByHostId(@RequestParam(value = "id") String hostId,
-                                                          @RequestParam(value = "cmd") String cmd) {
-        TRemoteHostVo vo = tRemoteHostService.queryByPrimaryKey(hostId);
-        Shell shell = new Shell();
-        try {
-            shell.initByTRemoteHostVo(vo).execute(cmd);
-        } catch (JSchException e) {
-            e.printStackTrace();
-        }
-        ArrayList<String> standardOutput = shell.getStandardOutput();
-        return Response.ok(standardOutput);
-    }
-
 }

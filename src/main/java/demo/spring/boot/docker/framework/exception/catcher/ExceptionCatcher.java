@@ -23,7 +23,6 @@ public class ExceptionCatcher {
     @ResponseBody
     public Response ExceptionDeal(Exception e) {
         Response response = new Response();
-
         response.setCode(Code.System.SYSTEM_ERROR_CODE);
         response.setMsg(Code.System.SYSTEM_ERROR_CODE_MSG);
         response.addException(e);

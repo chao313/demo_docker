@@ -57,8 +57,9 @@ public class Response<T> {
         return exceptions;
     }
 
-    public void addException(Exception exception) {
+    public Response addException(Exception exception) {
         this.exceptions.add(exception);
+        return this;
     }
 
     public T getContent() {
@@ -78,6 +79,16 @@ public class Response<T> {
     public static <T> Response<T> fail(T data) {
         return new Response(Code.System.FAIL, null, data);
     }
+
+    /**
+     * 请求失败
+     *
+     * @return
+     */
+    public static Response fail(String msg) {
+        return new Response(Code.System.FAIL, msg, null);
+    }
+
 
     /**
      * 请求失败

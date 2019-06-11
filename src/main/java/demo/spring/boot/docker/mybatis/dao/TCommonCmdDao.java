@@ -52,14 +52,13 @@ public interface TCommonCmdDao {
     int deleteBase(TCommonCmdVo vo);
 
 
-
     /**
      * 根据PrimaryKey查询
      * <p>
      * id : cmd id<p>
      * deleteFlag : 删除标志: 0未删除，1已删除
      */
-    TCommonCmdVo queryByPrimaryKey(String id, Integer deleteFlag);
+    TCommonCmdVo queryByPrimaryKey(@Param(value = "id") String id, @Param(value = "deleteFlag") Integer deleteFlag);
 
     /**
      * 根据PrimaryKey删除
@@ -67,6 +66,6 @@ public interface TCommonCmdDao {
      * id : cmd id<p>
      * deleteFlag : 删除标志: 0未删除，1已删除
      */
-    int deleteByPrimaryKey(String id, Integer deleteFlag);
+    int deleteByPrimaryKey(@Param(value = "id") String id, @Param(value = "deleteFlag") Integer deleteFlag);
 
 }
