@@ -108,7 +108,7 @@ public class CmdController {
         if (null == shellSDK) {
             return Response.fail("当前shellId获取不到session中的shellSDK");
         }
-        return Response.ok(sessionComponent.getShellSDK(shellId).exec2(cmd));
+        return Response.ok(sessionComponent.getShellSDK(shellId).executeSup(cmd));
     }
 
 

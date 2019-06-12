@@ -1,6 +1,7 @@
 package demo.spring.boot.docker.util.ssh.other;
 
 import com.jcraft.jsch.*;
+import demo.spring.boot.docker.constant.Constant;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.vo.TRemoteHostVo;
 
@@ -108,7 +109,15 @@ public class ShellSDK {
         return returnCode;
     }
 
-    public List<String> exec2(String cmd) {
+    /**
+     * execute 加强版
+     * 执行命令 + 去除颜色返回
+     * 解决execute获取返回的等待问题及颜色问题
+     *
+     * @param cmd
+     * @return
+     */
+    public List<String> executeSup(String cmd) {
         List<String> response = new ArrayList<>();
         try {
             InputStream input = channelShell.getInputStream();
@@ -118,12 +127,18 @@ public class ShellSDK {
             TimeUnit.SECONDS.sleep(1);
             byte[] tmp = new byte[1024];
             int end = input.available();
+            StringBuffer buffer = new StringBuffer(1024);
             while (end > 0) {
                 int i = input.read(tmp, 0, 1024);
                 end = input.available();
                 if (i < 0)
                     break;
-                response.add(new String(tmp, 0, i));
+                buffer.append(new String(tmp, 0, i));
+            }
+            LineNumberReader lineNumberReader = new LineNumberReader(new StringReader(buffer.toString()));
+            String line;
+            while (null != (line = lineNumberReader.readLine())) {
+                response.add(line);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
