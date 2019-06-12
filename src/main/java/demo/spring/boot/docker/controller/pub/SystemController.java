@@ -4,6 +4,7 @@ import demo.spring.boot.docker.constant.Constant;
 import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
+import demo.spring.boot.docker.vo.cmd.response.DF;
 import demo.spring.boot.docker.vo.cmd.response.Free;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class SystemController {
     private SessionComponent sessionComponent;
 
     @ApiOperation(value = "获取系统的内存使用", notes = "获取系统的内存使用<br>")
-    @RequestMapping(value = {"/freeByShellId"}, method = RequestMethod.GET)
-    public Response executeCmdByShellId(
+    @RequestMapping(value = {"/getSystemFreeByShellId"}, method = RequestMethod.GET)
+    public Response getSystemFreeByShellId(
             @RequestParam(value = "shellId", required = true) String shellId) {
         ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
         if (null == shellSDK) {
@@ -51,5 +52,29 @@ public class SystemController {
         }
         return Response.ok(free);
     }
+
+    @ApiOperation(value = "获取系统的磁盘使用", notes = "获取系统的磁盘使用<br>")
+    @RequestMapping(value = {"/getSystemDFByShellId"}, method = RequestMethod.GET)
+    public Response getSystemDFByShellId(
+            @RequestParam(value = "shellId", required = true) String shellId) {
+        ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
+        if (null == shellSDK) {
+            return Response.fail("当前shellId获取不到session中的shellSDK");
+        }
+        if (shellSDK.isConnect() == false) {
+            return Response.fail("当前的shell已经失效，请重新登录");
+        }
+        List<String> list = sessionComponent.getShellSDK(shellId).executeSup(DF.CMD_DF_HL + DF.ATTACH_CMD);
+        DF df = new DF();
+        for (String line : list) {
+            if (line.startsWith(Constant.RESPONSE_DATA)) {
+                line = line.replace(Constant.RESPONSE_DATA, "");
+                String[] split = line.split(",");
+                df.addInfo(split[0], split[1], split[2], split[3], split[4], split[5]);
+            }
+        }
+        return Response.ok(df);
+    }
+
 
 }

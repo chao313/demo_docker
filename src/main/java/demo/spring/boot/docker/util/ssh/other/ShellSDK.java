@@ -166,7 +166,7 @@ public class ShellSDK {
      * @return
      */
     public boolean isConnect() {
-        return this.session.isConnected();
+        return this.session.isConnected() && this.channelShell.isConnected();
     }
 
     /**
