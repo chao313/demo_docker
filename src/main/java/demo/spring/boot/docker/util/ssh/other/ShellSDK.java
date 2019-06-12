@@ -3,6 +3,8 @@ package demo.spring.boot.docker.util.ssh.other;
 import com.jcraft.jsch.*;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.vo.table.TRemoteHostVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ShellSDK {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     private String id;
     //远程主机的ip地址
     private String ip;
@@ -117,6 +122,7 @@ public class ShellSDK {
      * @return
      */
     public List<String> executeSup(String cmd) {
+        logger.info("#命令执行# cmd:{}", cmd);
         List<String> response = new ArrayList<>();
         try {
             InputStream input = channelShell.getInputStream();
