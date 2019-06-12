@@ -6,7 +6,9 @@ import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
 import demo.spring.boot.docker.vo.cmd.response.DF;
 import demo.spring.boot.docker.vo.cmd.response.Free;
+import demo.spring.boot.docker.vo.cmd.response.PS;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +76,44 @@ public class SystemController {
             }
         }
         return Response.ok(df);
+    }
+
+    @ApiOperation(value = "获取系统的PS相关信息", notes = "获取系统的PS相关信息" +
+            "<br>" +
+            "order 3为MEM,4为cpu" +
+            "<br>" +
+            "head 存在就限制，不存在就不限制")
+    @RequestMapping(value = {"/getSystemPSByShellId"}, method = RequestMethod.GET)
+    public Response getSystemPSByShellId(
+            @RequestParam(value = "shellId", required = true) String shellId,
+            @RequestParam(value = "order", required = false) String order,
+            @RequestParam(value = "head", required = false) String head
+    ) {
+        ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
+        if (null == shellSDK) {
+            return Response.fail("当前shellId获取不到session中的shellSDK");
+        }
+        if (shellSDK.isConnect() == false) {
+            return Response.fail("当前的shell已经失效，请重新登录");
+        }
+        String cmd = PS.CMD;
+        if (StringUtils.isNotBlank(order)) {
+            cmd += PS.ORBER_CMD + order;
+        }
+        if (StringUtils.isNotBlank(head)) {
+            cmd += PS.HEAD + head;
+        }
+        cmd += PS.AWK;
+        List<String> list = sessionComponent.getShellSDK(shellId).executeSup(cmd);
+        PS ps = new PS();
+        for (String line : list) {
+            if (line.startsWith(Constant.RESPONSE_DATA)) {
+                line = line.replace(Constant.RESPONSE_DATA, "");
+                String[] split = line.split(",");
+                ps.addProcessInfo(split[0], split[1], split[2], split[3], split[4], split[5], split[6], split[7], split[8], split[9], split[10]);
+            }
+        }
+        return Response.ok(ps);
     }
 
 
