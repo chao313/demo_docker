@@ -8,7 +8,7 @@ import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TUserService;
 import demo.spring.boot.docker.util.MD5Utils;
 import demo.spring.boot.docker.util.UUIDUtils;
-import demo.spring.boot.docker.vo.TUserVo;
+import demo.spring.boot.docker.vo.table.TUserVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

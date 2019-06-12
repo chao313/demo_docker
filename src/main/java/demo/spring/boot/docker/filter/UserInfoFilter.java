@@ -3,7 +3,7 @@ package demo.spring.boot.docker.filter;
 import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.framework.Code;
 import demo.spring.boot.docker.framework.Response;
-import demo.spring.boot.docker.vo.TUserVo;
+import demo.spring.boot.docker.vo.table.TUserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import com.alibaba.fastjson.JSON;

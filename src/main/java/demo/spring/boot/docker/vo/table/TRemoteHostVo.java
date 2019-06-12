@@ -1,29 +1,29 @@
-package demo.spring.boot.docker.vo;
+package demo.spring.boot.docker.vo.table;
 
 import java.sql.Timestamp;
 
 /**
- * 对应的表名   :t_component_person_file
+ * 对应的表名   :t_remote_host
  * 表类型      :BASE TABLE
  * 表引擎      :InnoDB
  * 表版本      :10
  * 行格式      :Dynamic
  * 表创建时间   :2019-6-8
  * 表字符集    :utf8_general_ci
- * 表注释      :个人文件组件安装
+ * 表注释      :远程主机
  */
 
 
-public class TComponentPersonFileVo {
+public class TRemoteHostVo {
 
-    private String id;  // 个人文件组件id 
+    private String id;  // 主机id 
     private String belongUserId;  // 主机属于用户的ID 
-    private String name;  // 安装文件的name 
-    private String redhatFile;  // 文件组件在redhat上的安装 
-    private String debianFile;  // 文件组件在debian上的安装 
-    private String binFile;  // 文件组件二进制安装 
+    private String hostIp;  // 主机IP 
+    private String port;  // 主机端口号 
+    private String hostUser;  // 主机端用户 
+    private String passwd;  // 主机密码 
+    private String remark;  // 备注 
     private Integer status;  // 0-未启用 1-启用 
-    private String location;  // 安装文件的安装location 
     private Timestamp createTime;  // 创建时间（申请时间） 
     private Timestamp updateTime; 
     private Integer deleteFlag;  // 删除标志: 0未删除，1已删除 
@@ -53,51 +53,63 @@ public class TComponentPersonFileVo {
 
     }
 
-    public String getName() {
+    public String getHostIp() {
 
-        return name;
-
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
+        return hostIp;
 
     }
 
-    public String getRedhatFile() {
+    public void setHostIp(String hostIp) {
 
-        return redhatFile;
-
-    }
-
-    public void setRedhatFile(String redhatFile) {
-
-        this.redhatFile = redhatFile;
+        this.hostIp = hostIp;
 
     }
 
-    public String getDebianFile() {
+    public String getPort() {
 
-        return debianFile;
-
-    }
-
-    public void setDebianFile(String debianFile) {
-
-        this.debianFile = debianFile;
+        return port;
 
     }
 
-    public String getBinFile() {
+    public void setPort(String port) {
 
-        return binFile;
+        this.port = port;
 
     }
 
-    public void setBinFile(String binFile) {
+    public String getHostUser() {
 
-        this.binFile = binFile;
+        return hostUser;
+
+    }
+
+    public void setHostUser(String hostUser) {
+
+        this.hostUser = hostUser;
+
+    }
+
+    public String getPasswd() {
+
+        return passwd;
+
+    }
+
+    public void setPasswd(String passwd) {
+
+        this.passwd = passwd;
+
+    }
+
+    public String getRemark() {
+
+        return remark;
+
+    }
+
+    public void setRemark(String remark) {
+
+        this.remark = remark;
 
     }
 
@@ -110,18 +122,6 @@ public class TComponentPersonFileVo {
     public void setStatus(Integer status) {
 
         this.status = status;
-
-    }
-
-    public String getLocation() {
-
-        return location;
-
-    }
-
-    public void setLocation(String location) {
-
-        this.location = location;
 
     }
 
@@ -164,15 +164,15 @@ public class TComponentPersonFileVo {
 
     @Override
     public String toString() {
-        return "TComponentPersonFileVo{" +
+        return "TRemoteHostVo{" +
                 ", id '" + id + '\'' +
                 ", belongUserId '" + belongUserId + '\'' +
-                ", name '" + name + '\'' +
-                ", redhatFile '" + redhatFile + '\'' +
-                ", debianFile '" + debianFile + '\'' +
-                ", binFile '" + binFile + '\'' +
+                ", hostIp '" + hostIp + '\'' +
+                ", port '" + port + '\'' +
+                ", hostUser '" + hostUser + '\'' +
+                ", passwd '" + passwd + '\'' +
+                ", remark '" + remark + '\'' +
                 ", status '" + status +
-                ", location '" + location + '\'' +
                 ", createTime '" + createTime +
                 ", updateTime '" + updateTime +
                 ", deleteFlag '" + deleteFlag +

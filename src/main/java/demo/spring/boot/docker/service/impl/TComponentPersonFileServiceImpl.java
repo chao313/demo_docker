@@ -4,7 +4,7 @@ package demo.spring.boot.docker.service.impl;
 import java.util.List;
 
 import demo.spring.boot.docker.service.TComponentPersonFileService;
-import demo.spring.boot.docker.vo.TComponentPersonFileVo;
+import demo.spring.boot.docker.vo.table.TComponentPersonFileVo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import demo.spring.boot.docker.mybatis.dao.TComponentPersonFileDao;

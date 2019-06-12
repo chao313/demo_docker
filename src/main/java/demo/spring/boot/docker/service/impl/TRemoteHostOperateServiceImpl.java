@@ -4,7 +4,7 @@ package demo.spring.boot.docker.service.impl;
 import java.util.List;
 
 import demo.spring.boot.docker.service.TRemoteHostOperateService;
-import demo.spring.boot.docker.vo.TRemoteHostOperateVo;
+import demo.spring.boot.docker.vo.table.TRemoteHostOperateVo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import demo.spring.boot.docker.mybatis.dao.TRemoteHostOperateDao;

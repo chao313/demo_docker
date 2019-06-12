@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="demo.spring.boot.docker.mybatis.dao.TComponentPersonFileDao">
 
-    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         <result column="id" property="id"/>
         <result column="belong_user_id" property="belongUserId"/>
         <result column="name" property="name"/>
@@ -17,7 +17,7 @@
     </resultMap>
 
     <insert id="insert"
-            parameterType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         INSERT INTO `t_component_person_file`(
         `id` ,
         `belong_user_id` ,
@@ -78,8 +78,8 @@
     </insert>
 
     <select id="queryBase" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TComponentPersonFileVo"
-            parameterType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            resultType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo"
+            parameterType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         SELECT
         `id`,
         `belong_user_id`,
@@ -132,7 +132,7 @@
     </select>
 
     <update id="updateBase"
-            parameterType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         UPDATE `t_component_person_file`
         <set>
             <if test="source.belongUserId != null">
@@ -205,7 +205,7 @@
     </update>
 
     <update id="updateBaseIncludeNull"
-            parameterType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         UPDATE `t_component_person_file`
         <set>
             `belong_user_id` = #{source.belongUserId},
@@ -258,7 +258,7 @@
     </update>
 
     <delete id="deleteBase"
-            parameterType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         DELETE FROM `t_component_person_file`
         <where>
             1 =1
@@ -300,7 +300,7 @@
 
 
     <select id="queryByPrimaryKey" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TComponentPersonFileVo">
+            resultType="demo.spring.boot.docker.vo.table.TComponentPersonFileVo">
         SELECT
         `id`,
         `belong_user_id`,

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="demo.spring.boot.docker.mybatis.dao.TComponentCommonFileDao">
 
-    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="redhat_file" property="redhatFile"/>
@@ -16,7 +16,7 @@
     </resultMap>
 
     <insert id="insert"
-            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         INSERT INTO `t_component_common_file`(
         `id` ,
         `name` ,
@@ -73,8 +73,8 @@
     </insert>
 
     <select id="queryBase" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TComponentCommonFileVo"
-            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            resultType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo"
+            parameterType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         SELECT
         `id`,
         `name`,
@@ -123,7 +123,7 @@
     </select>
 
     <update id="updateBase"
-            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         UPDATE `t_component_common_file`
         <set>
             <if test="source.name != null">
@@ -190,7 +190,7 @@
     </update>
 
     <update id="updateBaseIncludeNull"
-            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         UPDATE `t_component_common_file`
         <set>
             `name` = #{source.name},
@@ -239,7 +239,7 @@
     </update>
 
     <delete id="deleteBase"
-            parameterType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            parameterType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         DELETE FROM `t_component_common_file`
         <where>
             1 =1
@@ -278,7 +278,7 @@
 
 
     <select id="queryByPrimaryKey" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TComponentCommonFileVo">
+            resultType="demo.spring.boot.docker.vo.table.TComponentCommonFileVo">
         SELECT
         `id`,
         `name`,

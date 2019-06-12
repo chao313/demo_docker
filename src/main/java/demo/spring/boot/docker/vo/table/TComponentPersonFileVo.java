@@ -1,28 +1,29 @@
-package demo.spring.boot.docker.vo;
+package demo.spring.boot.docker.vo.table;
 
 import java.sql.Timestamp;
 
 /**
- * 对应的表名   :t_component_person_cmd
+ * 对应的表名   :t_component_person_file
  * 表类型      :BASE TABLE
  * 表引擎      :InnoDB
  * 表版本      :10
  * 行格式      :Dynamic
  * 表创建时间   :2019-6-8
  * 表字符集    :utf8_general_ci
- * 表注释      :个人cmd组件安装命令
+ * 表注释      :个人文件组件安装
  */
 
 
-public class TComponentPersonCmdVo {
+public class TComponentPersonFileVo {
 
-    private String id;  // 个人cmd命令id 
+    private String id;  // 个人文件组件id 
     private String belongUserId;  // 主机属于用户的ID 
-    private String name;  // cmd组件的name 
-    private String redhatCmd;  // cmd组件在redhat上的安装 
-    private String debianCmd;  // cmd组件在debian上的安装 
-    private String binCmd;  // cmd组件二进制安装 
+    private String name;  // 安装文件的name 
+    private String redhatFile;  // 文件组件在redhat上的安装 
+    private String debianFile;  // 文件组件在debian上的安装 
+    private String binFile;  // 文件组件二进制安装 
     private Integer status;  // 0-未启用 1-启用 
+    private String location;  // 安装文件的安装location 
     private Timestamp createTime;  // 创建时间（申请时间） 
     private Timestamp updateTime; 
     private Integer deleteFlag;  // 删除标志: 0未删除，1已删除 
@@ -64,39 +65,39 @@ public class TComponentPersonCmdVo {
 
     }
 
-    public String getRedhatCmd() {
+    public String getRedhatFile() {
 
-        return redhatCmd;
-
-    }
-
-    public void setRedhatCmd(String redhatCmd) {
-
-        this.redhatCmd = redhatCmd;
+        return redhatFile;
 
     }
 
-    public String getDebianCmd() {
+    public void setRedhatFile(String redhatFile) {
 
-        return debianCmd;
-
-    }
-
-    public void setDebianCmd(String debianCmd) {
-
-        this.debianCmd = debianCmd;
+        this.redhatFile = redhatFile;
 
     }
 
-    public String getBinCmd() {
+    public String getDebianFile() {
 
-        return binCmd;
+        return debianFile;
 
     }
 
-    public void setBinCmd(String binCmd) {
+    public void setDebianFile(String debianFile) {
 
-        this.binCmd = binCmd;
+        this.debianFile = debianFile;
+
+    }
+
+    public String getBinFile() {
+
+        return binFile;
+
+    }
+
+    public void setBinFile(String binFile) {
+
+        this.binFile = binFile;
 
     }
 
@@ -109,6 +110,18 @@ public class TComponentPersonCmdVo {
     public void setStatus(Integer status) {
 
         this.status = status;
+
+    }
+
+    public String getLocation() {
+
+        return location;
+
+    }
+
+    public void setLocation(String location) {
+
+        this.location = location;
 
     }
 
@@ -151,14 +164,15 @@ public class TComponentPersonCmdVo {
 
     @Override
     public String toString() {
-        return "TComponentPersonCmdVo{" +
+        return "TComponentPersonFileVo{" +
                 ", id '" + id + '\'' +
                 ", belongUserId '" + belongUserId + '\'' +
                 ", name '" + name + '\'' +
-                ", redhatCmd '" + redhatCmd + '\'' +
-                ", debianCmd '" + debianCmd + '\'' +
-                ", binCmd '" + binCmd + '\'' +
+                ", redhatFile '" + redhatFile + '\'' +
+                ", debianFile '" + debianFile + '\'' +
+                ", binFile '" + binFile + '\'' +
                 ", status '" + status +
+                ", location '" + location + '\'' +
                 ", createTime '" + createTime +
                 ", updateTime '" + updateTime +
                 ", deleteFlag '" + deleteFlag +

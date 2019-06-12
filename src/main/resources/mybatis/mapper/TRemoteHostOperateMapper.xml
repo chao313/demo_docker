@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="demo.spring.boot.docker.mybatis.dao.TRemoteHostOperateDao">
 
-    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         <result column="id" property="id"/>
         <result column="belong_remote_id" property="belongRemoteId"/>
         <result column="operate_user_id" property="operateUserId"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <insert id="insert"
-            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            parameterType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         INSERT INTO `t_remote_host_operate`(
         `id` ,
         `belong_remote_id` ,
@@ -63,8 +63,8 @@
     </insert>
 
     <select id="queryBase" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TRemoteHostOperateVo"
-            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            resultType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo"
+            parameterType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         SELECT
         `id`,
         `belong_remote_id`,
@@ -105,7 +105,7 @@
     </select>
 
     <update id="updateBase"
-            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            parameterType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         UPDATE `t_remote_host_operate`
         <set>
             <if test="source.belongRemoteId != null">
@@ -160,7 +160,7 @@
     </update>
 
     <update id="updateBaseIncludeNull"
-            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            parameterType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         UPDATE `t_remote_host_operate`
         <set>
             `belong_remote_id` = #{source.belongRemoteId},
@@ -201,7 +201,7 @@
     </update>
 
     <delete id="deleteBase"
-            parameterType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            parameterType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         DELETE FROM `t_remote_host_operate`
         <where>
             1 =1
@@ -234,7 +234,7 @@
 
 
     <select id="queryByPrimaryKey" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TRemoteHostOperateVo">
+            resultType="demo.spring.boot.docker.vo.table.TRemoteHostOperateVo">
         SELECT
         `id`,
         `belong_remote_id`,

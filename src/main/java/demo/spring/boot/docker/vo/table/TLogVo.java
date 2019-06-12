@@ -1,4 +1,4 @@
-package demo.spring.boot.docker.vo;
+package demo.spring.boot.docker.vo.table;
 
 import java.sql.Timestamp;
 

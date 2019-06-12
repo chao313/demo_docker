@@ -1,9 +1,8 @@
 package demo.spring.boot.docker.util.ssh.other;
 
 import com.jcraft.jsch.*;
-import demo.spring.boot.docker.constant.Constant;
 import demo.spring.boot.docker.util.UUIDUtils;
-import demo.spring.boot.docker.vo.TRemoteHostVo;
+import demo.spring.boot.docker.vo.table.TRemoteHostVo;
 
 import java.io.*;
 import java.util.ArrayList;

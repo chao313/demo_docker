@@ -7,7 +7,7 @@ import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TRemoteHostService;
 import demo.spring.boot.docker.util.ssh.other.Shell;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
-import demo.spring.boot.docker.vo.TRemoteHostVo;
+import demo.spring.boot.docker.vo.table.TRemoteHostVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

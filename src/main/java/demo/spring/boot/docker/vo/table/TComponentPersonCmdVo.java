@@ -1,28 +1,27 @@
-package demo.spring.boot.docker.vo;
+package demo.spring.boot.docker.vo.table;
 
 import java.sql.Timestamp;
 
 /**
- * 对应的表名   :t_remote_host
+ * 对应的表名   :t_component_person_cmd
  * 表类型      :BASE TABLE
  * 表引擎      :InnoDB
  * 表版本      :10
  * 行格式      :Dynamic
  * 表创建时间   :2019-6-8
  * 表字符集    :utf8_general_ci
- * 表注释      :远程主机
+ * 表注释      :个人cmd组件安装命令
  */
 
 
-public class TRemoteHostVo {
+public class TComponentPersonCmdVo {
 
-    private String id;  // 主机id 
+    private String id;  // 个人cmd命令id 
     private String belongUserId;  // 主机属于用户的ID 
-    private String hostIp;  // 主机IP 
-    private String port;  // 主机端口号 
-    private String hostUser;  // 主机端用户 
-    private String passwd;  // 主机密码 
-    private String remark;  // 备注 
+    private String name;  // cmd组件的name 
+    private String redhatCmd;  // cmd组件在redhat上的安装 
+    private String debianCmd;  // cmd组件在debian上的安装 
+    private String binCmd;  // cmd组件二进制安装 
     private Integer status;  // 0-未启用 1-启用 
     private Timestamp createTime;  // 创建时间（申请时间） 
     private Timestamp updateTime; 
@@ -53,63 +52,51 @@ public class TRemoteHostVo {
 
     }
 
-    public String getHostIp() {
+    public String getName() {
 
-        return hostIp;
-
-    }
-
-    public void setHostIp(String hostIp) {
-
-        this.hostIp = hostIp;
+        return name;
 
     }
 
-    public String getPort() {
+    public void setName(String name) {
 
-        return port;
-
-    }
-
-    public void setPort(String port) {
-
-        this.port = port;
+        this.name = name;
 
     }
 
-    public String getHostUser() {
+    public String getRedhatCmd() {
 
-        return hostUser;
-
-    }
-
-    public void setHostUser(String hostUser) {
-
-        this.hostUser = hostUser;
+        return redhatCmd;
 
     }
 
-    public String getPasswd() {
+    public void setRedhatCmd(String redhatCmd) {
 
-        return passwd;
-
-    }
-
-    public void setPasswd(String passwd) {
-
-        this.passwd = passwd;
+        this.redhatCmd = redhatCmd;
 
     }
 
-    public String getRemark() {
+    public String getDebianCmd() {
 
-        return remark;
+        return debianCmd;
 
     }
 
-    public void setRemark(String remark) {
+    public void setDebianCmd(String debianCmd) {
 
-        this.remark = remark;
+        this.debianCmd = debianCmd;
+
+    }
+
+    public String getBinCmd() {
+
+        return binCmd;
+
+    }
+
+    public void setBinCmd(String binCmd) {
+
+        this.binCmd = binCmd;
 
     }
 
@@ -164,14 +151,13 @@ public class TRemoteHostVo {
 
     @Override
     public String toString() {
-        return "TRemoteHostVo{" +
+        return "TComponentPersonCmdVo{" +
                 ", id '" + id + '\'' +
                 ", belongUserId '" + belongUserId + '\'' +
-                ", hostIp '" + hostIp + '\'' +
-                ", port '" + port + '\'' +
-                ", hostUser '" + hostUser + '\'' +
-                ", passwd '" + passwd + '\'' +
-                ", remark '" + remark + '\'' +
+                ", name '" + name + '\'' +
+                ", redhatCmd '" + redhatCmd + '\'' +
+                ", debianCmd '" + debianCmd + '\'' +
+                ", binCmd '" + binCmd + '\'' +
                 ", status '" + status +
                 ", createTime '" + createTime +
                 ", updateTime '" + updateTime +

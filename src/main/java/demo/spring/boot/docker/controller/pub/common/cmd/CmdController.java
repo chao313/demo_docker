@@ -7,7 +7,7 @@ import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TCommonCmdService;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
-import demo.spring.boot.docker.vo.TCommonCmdVo;
+import demo.spring.boot.docker.vo.table.TCommonCmdVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -107,6 +107,9 @@ public class CmdController {
         ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
         if (null == shellSDK) {
             return Response.fail("当前shellId获取不到session中的shellSDK");
+        }
+        if (shellSDK.isConnect() == false) {
+            return Response.fail("当前的shell已经失效，请重新登录");
         }
         return Response.ok(sessionComponent.getShellSDK(shellId).executeSup(cmd));
     }

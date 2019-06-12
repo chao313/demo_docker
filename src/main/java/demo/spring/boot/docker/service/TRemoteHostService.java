@@ -3,7 +3,7 @@ package demo.spring.boot.docker.service;
 
 import java.util.List;
 
-import demo.spring.boot.docker.vo.TRemoteHostVo;
+import demo.spring.boot.docker.vo.table.TRemoteHostVo;
 
 
 /**

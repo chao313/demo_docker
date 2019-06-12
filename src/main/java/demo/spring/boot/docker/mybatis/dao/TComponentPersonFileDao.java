@@ -3,7 +3,7 @@ package demo.spring.boot.docker.mybatis.dao;
 
 import java.util.List;
 
-import demo.spring.boot.docker.vo.TComponentPersonFileVo;
+import demo.spring.boot.docker.vo.table.TComponentPersonFileVo;
 
 import org.apache.ibatis.annotations.Param;
 

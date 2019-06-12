@@ -2,29 +2,16 @@ package demo.spring.boot.docker.controller.pub.token;
 
 import demo.spring.boot.docker.config.security.MyHttpSessionCsrfTokenRepository;
 import demo.spring.boot.docker.constant.SessionComponent;
-import demo.spring.boot.docker.enums.DeleteStatus;
-import demo.spring.boot.docker.enums.UseStatus;
 import demo.spring.boot.docker.framework.Response;
-import demo.spring.boot.docker.service.TUserService;
-import demo.spring.boot.docker.util.MD5Utils;
-import demo.spring.boot.docker.util.UUIDUtils;
-import demo.spring.boot.docker.vo.TUserVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/Token")

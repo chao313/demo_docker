@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="demo.spring.boot.docker.mybatis.dao.TLogDao">
 
-    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.TLogVo">
+    <resultMap id="resultMap" type="demo.spring.boot.docker.vo.table.TLogVo">
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="user_name" property="userName"/>
@@ -15,7 +15,7 @@
     </resultMap>
 
     <insert id="insert"
-            parameterType="demo.spring.boot.docker.vo.TLogVo">
+            parameterType="demo.spring.boot.docker.vo.table.TLogVo">
         INSERT INTO `t_log`(
         `id` ,
         `user_id` ,
@@ -68,8 +68,8 @@
     </insert>
 
     <select id="queryBase" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TLogVo"
-            parameterType="demo.spring.boot.docker.vo.TLogVo">
+            resultType="demo.spring.boot.docker.vo.table.TLogVo"
+            parameterType="demo.spring.boot.docker.vo.table.TLogVo">
         SELECT
         `id`,
         `user_id`,
@@ -114,7 +114,7 @@
     </select>
 
     <update id="updateBase"
-            parameterType="demo.spring.boot.docker.vo.TLogVo">
+            parameterType="demo.spring.boot.docker.vo.table.TLogVo">
         UPDATE `t_log`
         <set>
             <if test="source.userId != null">
@@ -175,7 +175,7 @@
     </update>
 
     <update id="updateBaseIncludeNull"
-            parameterType="demo.spring.boot.docker.vo.TLogVo">
+            parameterType="demo.spring.boot.docker.vo.table.TLogVo">
         UPDATE `t_log`
         <set>
             `user_id` = #{source.userId},
@@ -220,7 +220,7 @@
     </update>
 
     <delete id="deleteBase"
-            parameterType="demo.spring.boot.docker.vo.TLogVo">
+            parameterType="demo.spring.boot.docker.vo.table.TLogVo">
         DELETE FROM `t_log`
         <where>
             1 =1
@@ -256,7 +256,7 @@
 
 
     <select id="queryByPrimaryKey" resultMap="resultMap"
-            resultType="demo.spring.boot.docker.vo.TLogVo">
+            resultType="demo.spring.boot.docker.vo.table.TLogVo">
         SELECT
         `id`,
         `user_id`,

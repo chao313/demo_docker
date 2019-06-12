@@ -7,7 +7,7 @@ import demo.spring.boot.docker.service.TCommonCmdService;
 import demo.spring.boot.docker.mybatis.dao.TCommonCmdDao;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import demo.spring.boot.docker.vo.TCommonCmdVo;
+import demo.spring.boot.docker.vo.table.TCommonCmdVo;
 
 
 /**
