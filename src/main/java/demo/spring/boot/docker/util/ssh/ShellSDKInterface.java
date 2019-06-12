@@ -31,6 +31,8 @@ public interface ShellSDKInterface {
      */
     List<String> executeSync(final String command);
 
+    List<String> executeSync2(final String command);
+
     /**
      * 执行命令 异步返回输出值
      *

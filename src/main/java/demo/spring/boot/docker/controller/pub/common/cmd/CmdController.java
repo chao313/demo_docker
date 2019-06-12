@@ -6,6 +6,7 @@ import demo.spring.boot.docker.enums.DeleteStatus;
 import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TCommonCmdService;
 import demo.spring.boot.docker.util.UUIDUtils;
+import demo.spring.boot.docker.util.ssh.other.ShellSDK;
 import demo.spring.boot.docker.vo.TCommonCmdVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -102,9 +103,12 @@ public class CmdController {
     public Response executeCmdByShellId(
             @RequestParam(value = "cmd", required = true) String cmd,
             @RequestParam(value = "shellId", required = true) String shellId
-    ) throws IOException, JSchException {
-        sessionComponent.getShellSDK(shellId).execute(cmd);
-        return Response.ok(sessionComponent.getShellSDK(shellId).getStandardOutput());
+    ) throws IOException, JSchException, InterruptedException {
+        ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
+        if (null == shellSDK) {
+            return Response.fail("当前shellId获取不到session中的shellSDK");
+        }
+        return Response.ok(sessionComponent.getShellSDK(shellId).exec2(cmd));
     }
 
 

@@ -1,17 +1,12 @@
 package demo.spring.boot.docker.util.ssh.impl;
 
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+import com.jcraft.jsch.*;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.util.ssh.ShellSDKInterface;
 import demo.spring.boot.docker.util.ssh.other.MyUserInfo;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +17,7 @@ class Login {
     Session session;
     ChannelExec channelExec;
     BufferedReader input;
+    ChannelShell channelShell;
 
     public Login(String ip, String username, String password, int port) throws JSchException {
         JSch jsch = new JSch();
@@ -33,6 +29,8 @@ class Login {
         this.session.setConfig("StrictHostKeyChecking", "no");
         this.session.connect();
         this.channelExec = (ChannelExec) this.session.openChannel("exec");
+        this.channelShell = (ChannelShell) session.openChannel("shell");
+        channelShell.connect(3000);
     }
 
     public List<String> exec(String cmd) throws JSchException, IOException {
@@ -52,6 +50,19 @@ class Login {
         return response;
     }
 
+    public List<String> exec2(String cmd) throws JSchException, IOException {
+        BufferedReader bufferedReader;
+        InputStream input = channelShell.getInputStream();
+        OutputStream output = channelShell.getOutputStream();
+        output.write((cmd + " \n\r").getBytes());
+        bufferedReader = new BufferedReader(new InputStreamReader(input));
+        List<String> response = new ArrayList<>();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            response.add(line);
+        }
+        return response;
+    }
 
 }
 
@@ -100,6 +111,19 @@ public class ShellSDKImpl implements ShellSDKInterface {
         }
         return null;
     }
+
+    @Override
+    public List<String> executeSync2(String command) {
+        try {
+            return this.login.exec2(command);
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public int executeAsync(String command) {

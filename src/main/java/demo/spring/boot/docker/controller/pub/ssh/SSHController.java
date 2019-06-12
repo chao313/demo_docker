@@ -5,8 +5,6 @@ import com.jcraft.jsch.JSchException;
 import demo.spring.boot.docker.constant.SessionComponent;
 import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.service.TRemoteHostService;
-import demo.spring.boot.docker.util.ssh.ShellSDKInterface;
-import demo.spring.boot.docker.util.ssh.impl.ShellSDKImpl;
 import demo.spring.boot.docker.util.ssh.other.Shell;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
 import demo.spring.boot.docker.vo.TRemoteHostVo;
@@ -47,19 +45,6 @@ public class SSHController {
         }
         ArrayList<String> standardOutput = shell.getStandardOutput();
         return standardOutput;
-    }
-
-    @GetMapping(value = "/execute2")
-    public Response execute2(
-            @RequestParam(value = "ip", defaultValue = "39.107.236.187") String ip,
-            @RequestParam(value = "username", required = false, defaultValue = "root") String username,
-            @RequestParam(value = "password", required = false, defaultValue = "Ys20140913") String password,
-            @RequestParam(value = "port", required = false, defaultValue = "22") int port,
-            @RequestParam(value = "cmd") String cmd
-    ) {
-        ShellSDKInterface shell = new ShellSDKImpl().login(ip, username, password, port);
-        List<String> result = shell.executeSync(cmd);
-        return Response.ok(result);
     }
 
     @ApiOperation(value = "根据id执行host上的命令", notes = "根据id执行host上的命令<br>ls/cd/free")

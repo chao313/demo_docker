@@ -4,10 +4,10 @@ import com.jcraft.jsch.*;
 import demo.spring.boot.docker.util.UUIDUtils;
 import demo.spring.boot.docker.vo.TRemoteHostVo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ShellSDK {
     private String id;
@@ -28,6 +28,8 @@ public class ShellSDK {
     private ChannelExec channelExec;
 
     private BufferedReader input;
+
+    private ChannelShell channelShell;
 
     public ShellSDK() {
     }
@@ -67,6 +69,8 @@ public class ShellSDK {
         this.session.setConfig("StrictHostKeyChecking", "no");
         this.session.connect();
         this.channelExec = (ChannelExec) this.session.openChannel("exec");
+        this.channelShell = (ChannelShell) session.openChannel("shell");
+        channelShell.connect(3000);
         return this;
     }
 
@@ -102,6 +106,30 @@ public class ShellSDK {
         //关闭执行通道
 //        this.channelExec.disconnect();
         return returnCode;
+    }
+
+    public List<String> exec2(String cmd) {
+        List<String> response = new ArrayList<>();
+        try {
+            InputStream input = channelShell.getInputStream();
+            OutputStream output = channelShell.getOutputStream();
+            output.write((cmd + " \n\r").getBytes());
+            output.flush();
+            TimeUnit.SECONDS.sleep(1);
+            byte[] tmp = new byte[1024];
+            int end = input.available();
+            while (end > 0) {
+                int i = input.read(tmp, 0, 1024);
+                end = input.available();
+                if (i < 0)
+                    break;
+                response.add(new String(tmp, 0, i));
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return response;
+
     }
 
     /**
