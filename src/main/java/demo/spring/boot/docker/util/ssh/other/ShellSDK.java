@@ -153,6 +153,41 @@ public class ShellSDK {
     }
 
     /**
+     * execute 加强版
+     * 执行命令 + 去除颜色返回
+     * 解决execute获取返回的等待问题及颜色问题
+     * +返回的是二进制
+     *
+     * @param cmd
+     * @return
+     */
+    public byte[] executeSupBin(String cmd) {
+        logger.info("#命令执行# cmd:{}", cmd);
+        List<String> response = new ArrayList<>();
+        StringBuffer buffer = new StringBuffer(1024);
+        try {
+            InputStream input = channelShell.getInputStream();
+            OutputStream output = channelShell.getOutputStream();
+            output.write((cmd + " \n\r").getBytes());
+            output.flush();
+            TimeUnit.SECONDS.sleep(1);
+            byte[] tmp = new byte[1024];
+            int end = input.available();
+            while (end > 0) {
+                int i = input.read(tmp, 0, 1024);
+                end = input.available();
+                if (i < 0)
+                    break;
+                buffer.append(new String(tmp, 0, i));
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return buffer.toString().getBytes();
+
+    }
+
+    /**
      * 关闭当前连接
      */
     public void close() {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>webssh</title>
+    <link rel='shortcut icon' type='image/x-icon' href='image/favicon.ico'/>
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link href="css/tooltip.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="main" align="center">
+
+</div>
+<div id="term" align="center"></div>
+<script src="js/jquery.min.js"></script>
+<script src="js/term2.js"></script>
+<script src="js/ws.js"></script>
+<script src="js/formvalid.js"></script>
+<script src="js/main.js"></script>
+<script type="application/javascript">
+    $(function () {
+        $("#form").valid([
+            {name: "hostName", type: "ip"},
+            {name: "port", type: "port"},
+            {name: "username", type: "username"},
+            //{name: "password", type: "password"},
+        ]);
+    })
+</script>
+</body>
+</html>

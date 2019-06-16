@@ -20,7 +20,7 @@ public class SessionComponent {
 
     public static String CSRF_TOKEN_KEY = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
 
-    private static String SHELLSDK_KEY = "shellsdk_key";
+    public static String SHELLSDK_KEY = "shellsdk_key";
 
     /**
      * 获取 session 中的登陆信息
