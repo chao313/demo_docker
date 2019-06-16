@@ -6,6 +6,7 @@ import demo.spring.boot.docker.framework.Response;
 import demo.spring.boot.docker.util.ssh.other.ShellSDK;
 import demo.spring.boot.docker.vo.cmd.response.DF;
 import demo.spring.boot.docker.vo.cmd.response.Free;
+import demo.spring.boot.docker.vo.cmd.response.LS;
 import demo.spring.boot.docker.vo.cmd.response.PS;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -78,6 +79,12 @@ public class SystemController {
         return Response.ok(df);
     }
 
+    /**
+     * @param shellId
+     * @param order   排序方式
+     * @param head    查询前n个
+     * @return
+     */
     @ApiOperation(value = "获取系统的PS相关信息", notes = "获取系统的PS相关信息" +
             "<br>" +
             "order 3为MEM,4为cpu" +
@@ -114,6 +121,40 @@ public class SystemController {
             }
         }
         return Response.ok(ps);
+    }
+
+    @ApiOperation(value = "获取系统的LS相关信息", notes = "获取系统的LS相关信息" +
+            "<br>" +
+            "path : 指定路径")
+    @RequestMapping(value = {"/getPathLSByShellId"}, method = RequestMethod.GET)
+    public Response getSystemPSByShellId(
+            @RequestParam(value = "shellId", required = true) String shellId,
+            @RequestParam(value = "path", required = false) String path
+    ) {
+        ShellSDK shellSDK = sessionComponent.getShellSDK(shellId);
+        if (null == shellSDK) {
+            return Response.fail("当前shellId获取不到session中的shellSDK");
+        }
+        if (shellSDK.isConnect() == false) {
+            return Response.fail("当前的shell已经失效，请重新登录");
+        }
+        String cmd = "";
+        if (StringUtils.isNotBlank(path)) {
+            cmd = LS.generateCMD(path);
+        }
+        List<String> list = sessionComponent.getShellSDK(shellId).executeSup(cmd);
+        LS ls = new LS();
+        for (String line : list) {
+            if (line.startsWith(Constant.RESPONSE_DATA)) {
+                line = line.replace(Constant.RESPONSE_DATA, "");
+                String[] split = line.split(",");
+                if (split[0].length() == 10) {
+
+                    ls.addFileInfo(split[0].substring(0, 1), split[0].substring(1, 4), split[0].substring(4, 7), split[0].substring(7, 10), split[1], split[2], split[3], split[4], split[5] + " " + split[6], split[7]);
+                }
+            }
+        }
+        return Response.ok(ls);
     }
 
 
