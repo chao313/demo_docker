@@ -61,17 +61,9 @@ WSSHClient.prototype.sendInitData = function (options) {
     };
     this._connection.send(JSON.stringify({"tp": "init", "data": data}))
 }
-var dataStore = '';
 WSSHClient.prototype.sendClientData = function (data) {
-    if (typeof data === "function") {
-        console.log("data是函数");
-    } else {
-        dataStore += data;
-        if (data == '\r') {
-            this._connection.send(JSON.stringify({"tp": "client", "message": dataStore}))
-            dataStore='';
-        }
-    }
+    this._connection.send(JSON.stringify({"tp": "client", "message": data}))
 }
+
 
 var client = new WSSHClient();

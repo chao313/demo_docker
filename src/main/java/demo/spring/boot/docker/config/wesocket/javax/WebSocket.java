@@ -110,7 +110,7 @@ public class WebSocket {
             session.getAsyncRemote().sendText("ok");
             return;
         }
-        byte[] response = ((ShellSDK) session.getUserProperties().get("shell")).executeSupBin(term2Vo.getMessage());
+        byte[] response = ((ShellSDK) session.getUserProperties().get("shell")).executeSupTermJs(term2Vo.getMessage());
 //        ByteBuffer wrap = ByteBuffer.wrap(response);
 //        session.getAsyncRemote().sendBinary(wrap);
 

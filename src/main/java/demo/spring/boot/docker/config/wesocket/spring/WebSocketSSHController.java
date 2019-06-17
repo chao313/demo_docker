@@ -48,7 +48,7 @@ public class WebSocketSSHController {
     @MessageMapping("/sshTermJs")
     @SendTo("/sshTermJs")
     public byte[] httpSendToServerToClientUser(@RequestBody TermJsVo termJsVo) {
-        byte[] response = sessionComponent.getShellSDK(termJsVo.getShellId()).executeSupBin(termJsVo.getMessage());
+        byte[] response = sessionComponent.getShellSDK(termJsVo.getShellId()).executeSupTermJs(termJsVo.getMessage());
         return response;
     }
 

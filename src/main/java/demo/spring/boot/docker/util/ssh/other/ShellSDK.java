@@ -161,16 +161,16 @@ public class ShellSDK {
      * @param cmd
      * @return
      */
-    public byte[] executeSupBin(String cmd) {
+    public byte[] executeSupTermJs(String cmd) {
         logger.info("#命令执行# cmd:{}", cmd);
         List<String> response = new ArrayList<>();
         StringBuffer buffer = new StringBuffer(1024);
         try {
             InputStream input = channelShell.getInputStream();
             OutputStream output = channelShell.getOutputStream();
-            output.write((cmd + " \n\r").getBytes());
+            output.write((cmd).getBytes());
             output.flush();
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(100);
             byte[] tmp = new byte[1024];
             int end = input.available();
             while (end > 0) {

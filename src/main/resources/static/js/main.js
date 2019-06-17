@@ -28,9 +28,6 @@ function openTerminal(options) {
             console.debug('get data:' + data);
         }
     });
-    client.sendClientData(function (data) {
-        term.write(data);
-    })
 }
 
 var charWidth = 6.2;
